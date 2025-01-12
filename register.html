@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - AgriConnect</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <h2>Create Account</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="userType">I am a:</label>
+                    <select id="userType" required onchange="toggleFields()">
+                        <option value="">Select your role</option>
+                        <option value="worker">Agricultural Worker</option>
+                        <option value="provider">Land Provider</option>
+                        <option value="buyer">Buyer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                
+                <div id="aadharField" class="form-group hidden">
+                    <label for="aadhar">Aadhaar Card Number</label>
+                    <input type="text" id="aadhar" pattern="[0-9]{12}" maxlength="12">
+                </div>
+                
+                <div id="gstField" class="form-group hidden">
+                    <label for="gst">GST Number</label>
+                    <input type="text" id="gst">
+                    <small>*Required for business buyers only</small>
+                </div>
+
+                <button type="submit" class="auth-btn">Register</button>
+            </form>
+            <p class="auth-redirect">
+                Already have an account? 
+                <a href="login.html">Login here</a>
+            </p>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+</body>
+</html> 
