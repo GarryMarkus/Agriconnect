@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AgriConnect</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <h2>Login to AgriConnect</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="userType">Select Role</label>
+                    <select id="userType" required>
+                        <option value="">Select your role</option>
+                        <option value="worker">Agricultural Worker</option>
+                        <option value="provider">Land Provider</option>
+                        <option value="buyer">Buyer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="auth-btn">Login</button>
+            </form>
+            <p class="auth-redirect">
+                Don't have an account? 
+                <a href="register.html">Register here</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html> 
