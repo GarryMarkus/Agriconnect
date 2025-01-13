@@ -3,4 +3,6 @@ from ACP.views import *
 
 urlpatterns = [
     path('',start_template, name='home'),
+    path("login/",login,name="login")
+    
     ]
