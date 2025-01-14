@@ -25,7 +25,6 @@ def login(request):
 def register(request):
     if request.method == 'POST':
         try:
-            # Fix: Parse JSON data from request body instead of using POST.get()
             data = json.loads(request.body)
             full_name = data.get('name')
             email = data.get('email')
