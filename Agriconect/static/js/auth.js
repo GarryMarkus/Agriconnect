@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-document.getElementById('registerForm')?.addEventListener('submit', function(e) {
+document.getElementById('registerForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     
     // Basic validation
@@ -45,21 +45,37 @@ document.getElementById('registerForm')?.addEventListener('submit', function(e) 
         return;
     }
 
-    const formData = {
-        userType: document.getElementById('userType').value,
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        password: password
-    };
-
-    if (formData.userType === 'worker' || formData.userType === 'provider') {
-        formData.aadhar = document.getElementById('aadhar').value;
-    } else if (formData.userType === 'buyer') {
-        formData.gst = document.getElementById('gst').value;
+    // Get form data
+    const formData = new FormData(this);
+    const jsonData = {};
+    
+    // Convert FormData to JSON
+    for (const [key, value] of formData.entries()) {
+        jsonData[key] = value;
     }
 
-    console.log('Registration data:', formData);
+    try {
+        const response = await fetch('/register/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify(jsonData)
+        });
+
+        const data = await response.json();
+        console.log('Response:', data);
+
+        if (data.status === 'success') {
+            window.location.href = '/login/';
+        } else {
+            alert(data.message || 'Registration failed');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred during registration');
+    }
 });
 
 document.getElementById('loginForm')?.addEventListener('submit', function(e) {
