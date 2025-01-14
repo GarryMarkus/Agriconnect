@@ -6,10 +6,20 @@ from .models import UserProfile
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.contrib.auth import authenticate
 
 def start_template(request):
     return render(request, 'index.html')
 def login(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            auth_login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Invalid credentials')
     return render(request, 'login.html')
 @csrf_exempt  
 def register(request):
