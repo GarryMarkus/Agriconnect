@@ -462,3 +462,57 @@ nav .nav-links a.login-btn:hover {
         height: 250px;
     }
 }
+
+.footer {
+    background-color: #4a8e3b;
+    padding: 2rem 0;
+    text-align: left;
+    color: white;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-list {
+    flex: 1;
+    min-width: 200px;
+    margin: 0 20px;
+}
+
+.footer-list h3 {
+    color: white;
+    margin-bottom: 1rem;
+    text-decoration: underline;
+}
+
+.footer-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-list li {
+    margin: 0.5rem 0;
+}
+
+.footer-list a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.footer-list a:hover {
+    color: #ffd700;
+    transform: scale(1.1);
+}
+
+.footer-bottom {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: white;
+    text-align: center;
+}
