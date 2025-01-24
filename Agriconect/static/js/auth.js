@@ -1,15 +1,15 @@
-// Function to toggle fields based on user type
+
 function toggleFields() {
     const userType = document.getElementById('userType').value;
     const aadharField = document.getElementById('aadharField');
     const gstField = document.getElementById('gstField');
 
-    // Reset fields
+   
     if (aadharField && gstField) {
         aadharField.classList.add('hidden');
         gstField.classList.add('hidden');
         
-        // Reset required attribute
+       
         document.getElementById('aadhar').required = false;
         document.getElementById('gst').required = false;
 
@@ -18,17 +18,17 @@ function toggleFields() {
             document.getElementById('aadhar').required = true;
         } else if (userType === 'buyer') {
             gstField.classList.remove('hidden');
-            // GST is optional for retail buyers
+       
         }
     }
 }
 
-// Call toggleFields when the page loads
+
 document.addEventListener('DOMContentLoaded', function() {
     const userTypeSelect = document.getElementById('userType');
     if (userTypeSelect) {
         userTypeSelect.addEventListener('change', toggleFields);
-        // Initialize fields based on default selection
+        
         toggleFields();
     }
 });
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('registerForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    // Basic validation
+
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     
@@ -45,11 +45,10 @@ document.getElementById('registerForm')?.addEventListener('submit', async functi
         return;
     }
 
-    // Get form data
     const formData = new FormData(this);
     const jsonData = {};
     
-    // Convert FormData to JSON
+
     for (const [key, value] of formData.entries()) {
         jsonData[key] = value;
     }

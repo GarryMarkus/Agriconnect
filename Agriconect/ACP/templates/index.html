@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriConnect - Bridging Agricultural Communities</title>
-    {% load static %}
+    <title>AgriConnect</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="shortcut icon" href="{% static 'assets/favicon.jpg' %}" type="image/jpg">
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
 </head>
 <body>
     <div class="loader">
@@ -150,6 +152,29 @@
         </div>
     </footer>
 
-    <script src="{% static 'js/script.js '%}"></script>
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" id="chatbotToggle">
+            <i class="fas fa-comments"></i>
+        </button>
+        
+        <div class="chatbot-box" id="chatbotBox">
+            <div class="chatbot-header">
+                <h3>AgriConnect AI Assistant</h3>
+                <button class="close-btn" id="closeChatbot">&times;</button>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages"></div>
+
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Type your message...">
+                <button id="sendMessage">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/chatbot.js' %}"></script>
 </body>
 </html>

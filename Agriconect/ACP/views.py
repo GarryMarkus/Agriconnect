@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.contrib.auth import authenticate
+from .utils.gemini_config import get_gemini_response
+import asyncio
 
 def start_template(request):
     return render(request, 'index.html')
@@ -65,3 +67,34 @@ def register(request):
                 'message': str(e)
             }, status=500)
     return render(request, 'register.html')
+def index(request):
+    return render(request, 'index.html')
+
+@csrf_exempt
+async def chatbot_response(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user_message = data.get('message', '')
+            
+            if not user_message:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'No message provided'
+                })
+            
+            response = await get_gemini_response(user_message)
+            return JsonResponse(response)
+            
+        except Exception as e:
+            print(f"Error in chatbot_response: {str(e)}")  
+            return JsonResponse({
+                'status': 'error',
+                'message': 'An error occurred'
+            })
+    
+    return JsonResponse({
+        'status': 'error',
+        'message': 'Invalid request method'
+    })
+
