@@ -1,0 +1,136 @@
+:root {
+    --primary-color: #4a8e3b;
+    --secondary-color: #8b4513;
+    --background-color: #f5f6fa;
+    --text-color: #2c3e50;
+    --sidebar-width: 250px;
+}
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+}
+
+.profile-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+}
+
+.profile-header {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.profile-header i {
+    font-size: 64px;
+    margin-bottom: 10px;
+}
+
+.profile-nav {
+    margin-top: 30px;
+}
+
+.profile-nav a, #logout-btn {
+    display: block;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.profile-nav a:hover, #logout-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+#logout-btn {
+    width: 100%;
+    border: none;
+    background: none;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.form-group input {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.save-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.history-tabs {
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.tab-btn.active {
+    border-bottom: 2px solid var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.form-group input.readonly {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+/* Add two-column layout for wider screens */
+@media (min-width: 768px) {
+    #personal-info-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    
+    .save-btn {
+        grid-column: span 2;
+    }
+}
