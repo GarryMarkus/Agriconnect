@@ -46,7 +46,7 @@ def buyer_dashboard(request):
 def worker_dashboard(request):
     if request.user.profile.user_type != 'worker':
         return redirect('login')
-    return render(request, 'worker_dashboard.html')
+    return render(request, 'worker.html')
 
 @login_required
 def provider_dashboard(request):

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/worker.css' %}">
+    <title>Agriconnect Worker Dashboard</title>
+</head>
+<body>
+    <div id="loader"></div>
+    <nav>
+        <div class="logo">
+           <h2>AgriConnect</h2> 
+        </div>
+        <ul>
+            <li><a href="#banner">Home</a></li>
+            <li><a href="#elearning">E-Training</a></li>
+            <li><a href="#earning-overview">Earning Overview</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="banner">
+            <div class="slider">
+                <!-- Images for the slider -->
+                <img src="https://caburntelecom.com/wp-content/uploads/2024/01/Caburn-Smart-Agri-tech-scaled-1.jpeg" class="active" alt="Banner Image 1">
+                <img src="https://media.lendingkart.com/wp-content/uploads/2020/07/Agriculture-Business-Plan.jpg" alt="Banner Image 3">
+                <img src="{% static 'assets/agri2.jpg'}" alt="Banner Image 2">
+            </div>
+        </section>
+        <section id="stats">
+            <div class="card">
+                <h3>Number of Users</h3>
+                <p>1000</p>
+            </div>
+            <div class="card">
+                <h3>Courses Available</h3>
+                <p>6</p>
+            </div>
+            <div class="card">
+                <h3>Job Opportunities</h3>
+                <p>200</p>
+            </div>
+        </section>
+        <section id="elearning">
+            <h2>Start Learning !</h2>
+            <div class="card-container">
+                <div class="course-card">
+                    <h3>Modern Practices</h3>
+                    <img src="https://lvivity.com/wp-content/uploads/2020/04/iot-in-agriculture.jpg" alt="Course 1">
+                    <p>Let's deep dive into modern Agriccultural Practices.</p>
+                    <a href="#">Start Learning</a>
+                </div>
+                
+                <div class="course-card">
+                    <h3>Soil Types</h3>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRszc6pGacxOBB7Kfg6NVaI1hYLNY2lg1AT2I6OlErn-NiWvqi5gSUhQz114UvYWTJWCv8&usqp=CAU" alt="Course 1">
+                    <p>Get to know which place in India consist which soil.</p>
+                    <a href="#">Start Learning</a>
+                </div>
+    
+                <div class="course-card">
+                    <h3>Let's Know Crop</h3>
+                    <img src="https://vlsci.com/wp-content/themes/go-fish/images/sprouts-growing-550.jpg" alt="Course 1">
+                    <p>Get to knows abouts different types of crop.</p>
+                    <a href="#">Start Learning</a>
+                </div>
+    
+                <div class="course-card">
+                    <h3>Agriculture & Econmic Growth</h3>
+                    <img src="https://ciobusinessreview.com/wp-content/uploads/2022/01/4.png" alt="Course 1">
+                    <p>Know how agricultre helps in economic growth.</p>
+                    <a href="#">Start Learning</a>
+                </div>
+                
+                <div class="course-card">
+                    <h3>Basics Of Farming.</h3>
+                    <img src="https://search.aeccglobal.com/article/images/cXxFS4Hd8AtL5JLT--glide.jpg" alt="Course 1">
+                    <p>Getting started with all about farming.</p>
+                    <a href="#">Start Learning</a>
+                </div>
+    
+                <div class="course-card">
+                    <h3>Organic Farming</h3>
+                    <img src="https://spudnik.sfo2.digitaloceanspaces.com/wp-content/uploads/2024/03/Types-of-farming.jpg" alt="Course 1">
+                    <p>Understand about the Benefit of Organic farming.</p>
+                    <a href="#">Start Learning</a>
+                </div>
+            </div>
+        </section>
+        <section id="how-things-work">
+            <h2>How Things Work?</h2>
+            <div class="timeline">
+                <img src="timeline.jpg" alt="Timeline">
+            </div>
+        </section>
+        <section id="know-the-region">
+            <h2>Know the Region</h2>
+            <img src="{% static 'assets/indianSoils.png'}" alt="#">
+        </section>
+    </main>
+    <footer>
+        <p>"Cultivating Connections Growing Futures" - AgriConnect</p>
+    </footer>
+    <script src="{% static 'js/worker.js' %}"></script>
+</body>
+</html>

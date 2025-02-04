@@ -1,0 +1,195 @@
+:root {
+    --primary-green: #4a8e3b;
+    --secondary-brown: #8b4513;
+    --background-color: #f4f1de;
+    --text-dark: #333;
+    --text-light: #fff;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-dark);
+    font-family: Arial, sans-serif;
+}
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    z-index: 1000;
+}
+
+/* Hide main content initially */
+main {
+    display: none;
+}
+
+nav {
+    background-color: var(--secondary-brown);
+    padding: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    color: var(--text-light);
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav a:hover {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+}
+
+#banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 550px;
+    background-color: var(--background-color);
+    padding: 20px;
+}
+
+.slider {
+    width: 1200px;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.slider img.active {
+    opacity: 1;
+}
+
+#stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: var(--background-color);
+}
+
+.card {
+    background-color: #f4f1de;
+    color: var(--text-dark);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 30%;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+#elearning h2{
+    margin-left: 15px;
+}
+.card-container {
+    padding: 20px;
+    background-color: var(--background-color);
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+}
+
+.course-card {
+    background-color: #f4f1de;
+    color: var(--text-dark);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 300px;
+    height: 350px;
+    text-align: left;
+}
+
+.course-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border: 1.2px solid black;
+    border-radius: 10px;
+}
+
+.course-card a {
+    text-decoration: none;
+    color: #4a8e3b;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+
+.timeline {
+    width: 1200px;
+    height: 250px; /* Adjust as needed */
+}
+
+.know-the-region img {
+    width: 990px; /* Adjust as needed */
+    height: 600px; /* Adjust as needed */
+    margin: 0 auto;
+    /* background-image: url("indianSoils.png"); */
+    /* background-size: cover; */
+    margin-bottom: 10px;
+}
+#know-the-region h2{
+    margin-left: 15px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--secondary-brown);
+    color: var(--text-light);
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}

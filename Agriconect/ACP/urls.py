@@ -6,4 +6,5 @@ urlpatterns = [
     path("login/",login,name="login"),
     path("register/",register,name="register"),
     path('chatbot/response/', chatbot_response, name='chatbot_response'),
+    path("worker/",worker_dashboard,name="worker")
 ]
