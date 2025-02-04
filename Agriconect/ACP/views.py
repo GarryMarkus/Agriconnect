@@ -14,7 +14,7 @@ import asyncio
 def start_template(request):
     return render(request, 'index.html')
 
-@csrf_exempt
+
 def login(request):
     if request.method == 'POST':
         try:
