@@ -14,18 +14,6 @@ import asyncio
 def start_template(request):
     return render(request, 'index.html')
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib.auth import login as auth_login, authenticate
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import json
-from .models import UserProfile
-
-def start_template(request):
-    return render(request, 'index.html')
-
 @csrf_exempt
 def login(request):
     if request.method == 'POST':
