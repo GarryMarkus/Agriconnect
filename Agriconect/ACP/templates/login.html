@@ -13,6 +13,8 @@
         <div class="auth-box">
             <h2>Login to AgriConnect</h2>
             <form id="loginForm">
+                {% csrf_token %}
+                <div id="errorMessage" style="display:none; color:red;"></div>
                 <div class="form-group">
                     <label for="userType">Select Role</label>
                     <select id="userType" required>
@@ -38,5 +40,6 @@
             </p>
         </div>
     </div>
+    <script src="{% static 'js/auth.js' %}"></script>
 </body>
-</html> 
+</html>

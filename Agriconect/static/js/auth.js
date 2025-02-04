@@ -77,14 +77,36 @@ document.getElementById('registerForm')?.addEventListener('submit', async functi
     }
 });
 
-document.getElementById('loginForm')?.addEventListener('submit', function(e) {
+document.getElementById('loginForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
-    
+
+    const csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
     const loginData = {
         userType: document.getElementById('userType').value,
         email: document.getElementById('email').value,
         password: document.getElementById('password').value
     };
 
-    console.log('Login attempt:', loginData);
-}); 
+    try {
+        const response = await fetch('/login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrf_token  
+            },
+            body: JSON.stringify(loginData)
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            window.location.href = data.redirect;  
+        } else {
+            alert(data.message || 'Login failed');
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        alert('An error occurred during login');
+    }
+});
