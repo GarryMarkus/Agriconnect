@@ -196,24 +196,28 @@ def update_profile(request):
 @login_required
 def change_password(request):
     if request.method == 'POST':
-        old_password = request.POST.get('old_password')
-        new_password1 = request.POST.get('new_password1')
-        new_password2 = request.POST.get('new_password2')
-        print(old_password, new_password1, new_password2)
+        try:
+            data = json.loads(request.body)
+            old_password = data.get('old_password')
+            new_password1 = data.get('new_password')
+            new_password2 = data.get('new_password')
         
-        if not request.user.check_password(old_password):
-            messages.error(request, "Incorrect old password!")
+            if not request.user.check_password(old_password):
+                messages.error(request, "Incorrect old password!")
+                return redirect('/profile/')
+        
+            if new_password1 != new_password2:
+                messages.error(request, "Passwords didn't match!")
+                return redirect('/profile/')
+        
+            user = request.user
+            user.set_password(new_password1)
+            user.save()
+        
+            messages.success(request, "Password changed successfully!")
             return redirect('/profile/')
-        
-        if new_password1 != new_password2:
-            messages.error(request, "Passwords didn't match!")
+        except json.JSONDecodeError:
+            messages.error(request, "Invalid JSON format!")
             return redirect('/profile/')
-        
-        user = request.user
-        user.set_password(new_password1)
-        user.save()
-        
-        messages.success(request, "Password changed successfully!")
-        return redirect('/profile/')
     
     return render(request, 'changepassword.html')
