@@ -4,8 +4,8 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Profile</title>
-    <link rel="stylesheet" href="profile.css">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -13,108 +13,76 @@
         <div class="sidebar">
             <div class="profile-header">
                 <i class="fas fa-user-circle"></i>
-                <h2 id="user"></h2>
+                <h2>{{ user.get_full_name }}</h2>
             </div>
             <nav class="profile-nav">
                 <a href="#personal-info" class="active"><i class="fas fa-info-circle"></i> Personal Information</a>
-                <a href="#change-password"><i class="fas fa-key"></i> Change Password</a>
+                <a href="{% url 'change_password' %}"><i class="fas fa-key"></i> Change Password</a>
                 <a href="#history"><i class="fas fa-history"></i> View History</a>
-                <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <form method="POST" action="#">
+                    {% csrf_token %}
+                    <button type="submit" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </form>
             </nav>
         </div>
         
         <div class="main-content">
             <section id="personal-info" class="active">
                 <h2>Personal Information</h2>
-                <form id="personal-info-form">
+                <form id="personal-info-form" method="POST" action="{% url 'update_profile' %}">
+                    {% csrf_token %}
                     <div class="form-group">
                         <label>Name:</label>
-                        <input type="text" id="name" value="" readonly>
+                        <input type="text" id="name" value="{{ user.get_full_name }}" readonly>
                     </div>
                     <div class="form-group">
                         <label>Father's Name:</label>
-                        <input type="text" id="father-name" value="">
+                        <input type="text" id="father-name" name="father-name" value="{{ user_profile.father_name|default:'' }}">
                     </div>
                     <div class="form-group">
                         <label>Date of Birth:</label>
-                        <input type="date" id="dob" value="" readonly>
+                        <input type="date" id="dob" name="dob" value="{{ user_profile.dob|date:'Y-m-d' }}">
                     </div>
                     <div class="form-group">
                         <label>Contact Number:</label>
-                        <input type="tel" id="contact-number" value="">
+                        <input type="tel" id="contact-number" name="contact-number" value="{{ user_profile.phone_number }}">
                     </div>
                     <div class="form-group">
                         <label>Alternate Contact Number:</label>
-                        <input type="tel" id="Alternate-contact" value="">
+                        <input type="tel" id="Alternate-contact" name="alternate-contact" value="{{ user_profile.alternate_contact|default:'' }}">
                     </div>
                     <div class="form-group">
                         <label>Aadhaar Number:</label>
-                        <input type="text" id="aadhaar-number" value="" readonly>
+                        <input type="text" id="aadhaar-number" value="{{ user_profile.aadhar_number }}" readonly>
                     </div>
                     <div class="form-group">
                         <label>Account Type:</label>
-                        <input type="text" id="account-type" value="Regular" readonly>
+                        <input type="text" id="account-type" value="{{ user_profile.get_user_type_display }}" readonly>
                     </div>
                     <div class="form-group">
-                        <label>Year of Joining:</label>
-                        <input type="text" id="year" value="2025" readonly>
+                        <label>Experience in years </label>
+                        <input type="text" id="year" value="{{ user_profile.get_year_of_experience|default:'' }}">
                     </div>
-                    <!-- <div class="form-group">
-                        <label>Semester:</label>
-                        <input type="text" id="semester" value="3rd Semester" readonly>
-                    </div> -->
                     <div class="form-group">
                         <label>Email:</label>
-                        <input type="email" id="email" value="">
+                        <input type="email" id="email" value="{{ user.email }}" readonly>
                     </div>
                     <div class="form-group">
                         <label>Address:</label>
-                        <input type="text" id="address" value="">
+                        <input type="text" id="address" name="address" value="{{ user_profile.address|default:'' }}">
                     </div>
                     <div class="form-group">
                         <label>City/Town:</label>
-                        <input type="text" id="town" value="">
+                        <input type="text" id="town" name="town" value="{{ user_profile.city|default:'' }}">
                     </div>
                     <div class="form-group">
                         <label>Pin Code:</label>
-                        <input type="text" id="room" value="">
+                        <input type="text" id="room" name="pin-code" value="{{ user_profile.pin_code|default:'' }}">
                     </div>
                     <button type="submit" class="save-btn">Save Changes</button>
                 </form>
             </section>
-
-            <section id="change-password" class="hidden">
-                <h2>Change Password</h2>
-                <form id="password-form">
-                    <div class="form-group">
-                        <label>Current Password:</label>
-                        <input type="password" id="current-password">
-                    </div>
-                    <div class="form-group">
-                        <label>New Password:</label>
-                        <input type="password" id="new-password">
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm Password:</label>
-                        <input type="password" id="confirm-password">
-                    </div>
-                    <button type="submit" class="save-btn">Update Password</button>
-                </form>
-            </section>
-
-            <section id="history" class="hidden">
-                <h2>History</h2>
-                <div class="history-tabs">
-                    <button class="tab-btn active" data-tab="complaints">Complaints</button>
-                    <button class="tab-btn" data-tab="feedback">Feedback</button>
-                    <button class="tab-btn" data-tab="leave">Suggestions</button>
-                </div>
-                <div class="history-content">
-                    <!-- Content will be populated by JavaScript -->
-                </div>
-            </section>
         </div>
     </div>
-    <script src="profile.js"></script>
 </body>
 </html>

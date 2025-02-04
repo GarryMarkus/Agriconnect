@@ -16,7 +16,13 @@ class UserProfile(models.Model):
     phone_number = models.CharField(max_length=15)
     aadhar_number = models.CharField(max_length=12, null=True, blank=True)
     gst_number = models.CharField(max_length=15, null=True, blank=True)
-
+    father_name = models.CharField(max_length=100, null=True, blank=True)
+    dob = models.DateField(null=True, blank=True)
+    alternate_contact = models.CharField(max_length=15, null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    pin_code = models.CharField(max_length=10, null=True, blank=True)
+    year_of_experience = models.IntegerField(max_length=4, null=True, blank=True)
     def __str__(self):
         return f"{self.user.get_full_name()}'s Profile ({self.user_type})"
 

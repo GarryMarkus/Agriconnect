@@ -7,5 +7,8 @@ urlpatterns = [
     path("register/",register,name="register"),
     path('chatbot/response/', chatbot_response, name='chatbot_response'),
     path('worker_dashboard/',worker_dashboard, name='worker_dashboard'),
+    path("profile/",profile, name='profile'),
+    path('update-profile/', update_profile, name='update_profile'),
+    path('change_password/',change_password, name='change_password'),
 
 ]

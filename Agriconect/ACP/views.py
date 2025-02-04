@@ -98,7 +98,15 @@ def buyer_dashboard(request):
         return render(request, 'buyer_dashboard.html')
     except UserProfile.DoesNotExist:
         return redirect('login')
-
+@login_required
+def profile(request):
+    try:
+        user_profile = request.user.userprofile
+        if user_profile.user_type not in ['worker', 'provider', 'buyer']:
+            return redirect('login')
+        return render(request, 'profile.html', {'user_profile': user_profile})
+    except UserProfile.DoesNotExist:
+        return redirect('login')
 @csrf_exempt
 def register(request):
     if request.method == 'POST':
@@ -128,6 +136,7 @@ def register(request):
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 
     return render(request, 'register.html')
+
 
 def index(request):
     return render(request, 'index.html')
@@ -164,3 +173,47 @@ async def chatbot_response(request):
         'status': 'error',
         'message': 'Invalid request method'
     }, status=405)
+
+@login_required
+def update_profile(request):
+    user = request.user
+    user_profile, created = UserProfile.objects.get_or_create(user=user)
+
+    if request.method == 'POST':
+        user_profile.father_name = request.POST.get('father-name', user_profile.father_name)
+        user_profile.dob = request.POST.get('dob', user_profile.dob)
+        user_profile.phone_number = request.POST.get('contact-number', user_profile.phone_number)
+        user_profile.alternate_contact = request.POST.get('alternate-contact', user_profile.alternate_contact)
+        user_profile.address = request.POST.get('address', user_profile.address)
+        user_profile.city = request.POST.get('town', user_profile.city)
+        user_profile.pin_code = request.POST.get('pin-code', user_profile.pin_code)
+        user_profile.year_of_experience = request.POST.get('year', user_profile.year_of_experience)
+
+        user_profile.save()
+        messages.success(request, "Profile updated successfully!")
+        return redirect('profile') 
+    return render(request, 'profile.html', {'user_profile': user_profile})
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        old_password = request.POST.get('old_password')
+        new_password1 = request.POST.get('new_password1')
+        new_password2 = request.POST.get('new_password2')
+        print(old_password, new_password1, new_password2)
+        
+        if not request.user.check_password(old_password):
+            messages.error(request, "Incorrect old password!")
+            return redirect('/profile/')
+        
+        if new_password1 != new_password2:
+            messages.error(request, "Passwords didn't match!")
+            return redirect('/profile/')
+        
+        user = request.user
+        user.set_password(new_password1)
+        user.save()
+        
+        messages.success(request, "Password changed successfully!")
+        return redirect('/profile/')
+    
+    return render(request, 'changepassword.html')
