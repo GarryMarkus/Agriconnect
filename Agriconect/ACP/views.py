@@ -67,49 +67,15 @@ def worker_dashboard(request):
     except UserProfile.DoesNotExist:
         return redirect('login')
 
-# @login_required
-# def request_land_use(request, land_id):
-#     land = get_object_or_404(Land, id=land_id)
 
-#     if request.user.userprofile.user_type != 'worker':
-#         return JsonResponse({'status': 'error', 'message': 'Unauthorized access'}, status=403)
+@login_required
+def provider_dashboard(request):
+    if request.user.userprofile.user_type != 'provider':
+        return redirect('login')
 
-#     existing_request = LandRequest.objects.filter(worker=request.user, land=land).exists()
-#     if existing_request:
-#         return JsonResponse({'status': 'error', 'message': 'Request already sent'}, status=400)
-
-#     LandRequest.objects.create(worker=request.user, land=land)
-#     return JsonResponse({'status': 'success', 'message': 'Land use request sent successfully'})
-
-# @login_required
-# def provider_dashboard(request):
-#     if request.user.userprofile.user_type != 'provider':
-#         return redirect('login')
-
-#     lands = Land.objects.filter(provider=request.user)
-#     land_requests = LandRequest.objects.filter(land__provider=request.user, status='pending')
+    lands = Land.objects.filter(provider=request.user)
     
-#     return render(request, 'provider_dashboard.html', {'lands': lands, 'land_requests': land_requests})
-
-# @login_required
-# def approve_land_request(request, request_id):
-#     land_request = get_object_or_404(LandRequest, id=request_id, land__provider=request.user)
-
-#     land_request.status = 'approved'
-#     land_request.land.status = 'in_use'
-#     land_request.land.save()
-#     land_request.save()
-
-#     return JsonResponse({'status': 'success', 'message': 'Land request approved'})
-
-# @login_required
-# def reject_land_request(request, request_id):
-#     land_request = get_object_or_404(LandRequest, id=request_id, land__provider=request.user)
-
-#     land_request.status = 'rejected'
-#     land_request.save()
-
-#     return JsonResponse({'status': 'success', 'message': 'Land request rejected'})
+    return render(request, 'provider_dashboard.html', {'lands': lands})
 
 @login_required
 def add_land(request):
