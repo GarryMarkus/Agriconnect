@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriDash</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/land.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="{% static 'assets/agriconnect.png'}" alt="jpg">
+            AgriConnect
+        </div>
+        <nav>
+            <a href="#" class="nav-item active">
+                <i data-feather="home"></i>
+                Overview
+            </a>
+            <a href="#land-management" class="nav-item">
+                <i data-feather="map"></i>
+                Lands
+            </a>
+            <a href="#submit-land" class="nav-item">
+                <i data-feather="file-text"></i>
+                Submit
+            </a>
+            <a href="#land-documents" class="nav-item">
+                <i data-feather="book"></i>
+                Review
+            </a>
+            <a href="#weather-card" class="nav-item">
+                <i data-feather="cloud"></i>
+                Weather
+            </a>
+        </nav>
+        <div class="user-profile">
+            <div class="user-avatar">JD</div>
+            <div class="user-info">
+                <div class="user-name">John Doe</div>
+                <div class="user-email">john@example.com</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="welcome-header">
+            <h1>Welcome back, John!</h1>
+            <p>Here's what's happening with your agricultural lands</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon" style="background: #e6f7e6;">
+                    <i data-feather="map" style="color: #2ea12e;"></i>
+                </div>
+                <div class="title">Total Land Area</div>
+                <div class="value"><p id="total-land-area">-</p></div>
+            </div>
+            <div class="stat-card">
+                <div class="icon" style="background: #e6f0ff;">
+                    <i data-feather="plus" style="color: #3366ff;"></i>
+                </div>
+                <div class="title">Active Plots</div>
+                <div class="value"><p id="active-plots">-</p></div>
+            </div>
+            <div class="stat-card">
+                <div class="icon" style="background: #fff5e6;">
+                    <i data-feather="clock" style="color: #ff9900;"></i>
+                </div>
+                <div class="title">Pending Approvals</div>
+                <div class="value"><p id="pending-approvals">-</p></div>
+            </div>
+            <div class="stat-card">
+                <div class="icon" style="background: #f5e6ff;">
+                    <i data-feather="trending-up" style="color: #9933ff;"></i>
+                </div>
+                <div class="title">Revenue (Monthly)</div>
+                <div class="value">₹45,000</div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+            <div class="activity-card">
+                <h3 class="card-title">Recent Activity</h3>
+                <div class="activity-item">
+                    <div class="dot" style="background: #2ea12e;"></div>
+                    <span>New land submission approved - Plot #123</span>
+                    <span class="time">2h ago</span>
+                </div>
+                <div class="activity-item">
+                    <div class="dot" style="background: #3366ff;"></div>
+                    <span>Weather alert: Rain expected tomorrow</span>
+                    <span class="time">5h ago</span>
+                </div>
+                <div class="activity-item">
+                    <div class="dot" style="background: #ff9900;"></div>
+                    <span>New course available: Soil Management</span>
+                    <span class="time">1d ago</span>
+                </div>
+            </div>
+
+            <div class="weather-card" id="weather-card">
+                <h3 class="card-title">Weather Insights</h3>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 32px; font-weight: bold;">28°C</span>
+                    <span style="color: #666;">Partly Cloudy</span>
+                    <i data-feather="sun" style="color: #ff9900; margin-left: auto;"></i>
+                </div>
+                <div class="weather-details">
+                    <div class="weather-detail">
+                        <div class="value">65%</div>
+                        <div class="label">Humidity</div>
+                    </div>
+                    <div class="weather-detail">
+                        <div class="value">13 km/h</div>
+                        <div class="label">Wind</div>
+                    </div>
+                    <div class="weather-detail">
+                        <div class="value">0.5 mm</div>
+                        <div class="label">Rainfall</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <h2>Quick Actions</h2>
+            <ul>
+                <li><i class="fas fa-plus" style="color: #3366ff;"></i><p>Submit New Land <br> <span>Register a new plot</span></p></li>
+                <li><i class="fas fa-book" style="color: #2ea12e;"></i><p>Browse Course <br> <span>Learn Agricultural Practices</span> </p></li>
+                <li><i class="fas fa-chart-line" style="color: #9933ff;"></i><p>View Reports <br> <span>Check Land Performance</span> </li>
+            </ul>
+        </div>
+
+        <section class="land-management" id="land-management">
+            <h2>Land Management</h2>
+            <h3>Manage and monitor your agricultural lands</h3>
+            <div class="manage-parent">
+                <div class="land-statistics">
+                    <h4>Active Lands</h4>
+                    <table>
+                        <tr><th>Plot Id</th>
+                        <th>Location </th>
+                        <th>Size</th>
+                        <th>Status</th>
+                        <th>Action</th></tr>
+                        
+                        <tr>
+                        <td style="margin-left: 10px;">#1a597</td>
+                        <td>Delhi</td>
+                        <td>18 Acres</td>
+                        <td><i class="fa-solid fa-hourglass-start" style="color: orange;"></i> Pending</td>
+                        <td style="color: #3366ff;">View Details</td>
+                    </tr>
+                    </table>
+                </div>
+                <div class="current-activities">
+                    <h4>Current Activities</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-circle" style="font-size: 8px; color: #ff9900;"></i> Crop Rotation in Progress</li>
+                        <li><i class="fa-solid fa-circle" style="font-size: 8px; color: #2ea12e;"></i> Soil Testing Scheduled</li>
+                        <li><i class="fa-solid fa-circle" style="font-size: 8px; color: #3366ff;"></i> Irrigation Maintenance</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="submit-land" id="submit-land">
+            <h2>Submit Your Land</h2>
+            <h3>Please provide detailed information about your agricultural land</h3>
+            <form>
+                <fieldset>
+                    <legend>Basic Details</legend>
+                    <label for="owner-name">Owner's Full Name:</label>
+                    <input type="text" id="owner-name" name="owner-name" required>
+                    <br>
+                    <label for="contact-number">Contact Number:</label>
+                    <input type="tel" id="contact-number" name="contact-number" required>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Land Details</legend>
+                    <label for="total-area">Total Area (In Acres):</label>
+                    <input type="number" id="total-area" name="total-area" required>
+                    <br>
+                    <label for="land-survey-number">Land Survey Number:</label>
+                    <input type="text" id="land-survey-number" name="land-survey-number" required>
+                    <br>
+                    <label for="state">State:</label>
+                    <input type="text" id="state" name="state" required>
+                    <br>
+                    <label for="district">District:</label>
+                    <input type="text" id="district" name="district" required>
+                    <br>
+                    <label for="address">Complete Address:</label>
+                    <textarea id="address" name="address" required></textarea>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Agricultural History</legend>
+                    <label for="previous-crop">Previous Crop (last 3 years):</label>
+                    <input type="text" id="previous-crop" name="previous-crop" required>
+                    <br>
+                    <label>Irrigation Facilities:</label>
+                    <br>
+                    <input type="checkbox" id="well" name="irrigation-facilities" value="Well">
+                    <label for="well">Well</label>
+                    <br>
+                    <input type="checkbox" id="canal" name="irrigation-facilities" value="Canal">
+                    <label for="canal">Canal</label>
+                    <br>
+                    <input type="checkbox" id="drip" name="irrigation-facilities" value="Drip Irrigation">
+                    <label for="drip">Drip Irrigation</label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Land Documents</legend>
+                    <label for="ownership-document">Land Ownership Document:</label>
+                    <input type="file" id="ownership-document" name="ownership-document" required>
+                    <br>
+                    <label for="survey-document">Land Survey Documents:</label>
+                    <input type="file" id="survey-document" name="survey-document" required>
+                    <br>
+                    <label for="recent-photos">Recent Land Photos:</label>
+                    <input type="file" id="recent-photos" name="recent-photos" required multiple>
+                </fieldset>
+
+                <div class="button-container">
+                    <button type="button" onclick="cancelForm()">Cancel</button>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="land-documents" id="land-documents">
+            <h2>Land Documents</h2>
+            <h3>Manage and organize your land related documents</h3>
+            
+            <div class="land-ownership">
+                <h4>Land Ownership Document</h4>
+                <button onclick="redirectToForm()">Upload More Doc</button>
+            </div>
+            
+            <div id="uploaded-documents" class="uploaded-documents">
+                <!-- Uploaded documents will be displayed here -->
+            </div>
+        </section>
+    </div>
+    <script src="{% static 'js/land.js' %}"></script>
+</body>
+</html>
