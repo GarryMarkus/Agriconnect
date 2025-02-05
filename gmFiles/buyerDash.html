@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Buyer Dashboard</h1>
+    </header>
+    <nav>
+        <ul>        
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#orders">Orders</a></li>
+            <li><a href="#settings">Settings</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="profile">
+            <h2>Profile</h2>
+            <p>Welcome, [User Name]</p>
+        </section>
+        <section id="orders">
+            <h2>Orders</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="order-list">
+                    <!-- Orders will be populated here by JavaScript -->
+                </tbody>
+            </table>
+        </section>
+        <section id="settings">
+            <h2>Settings</h2>
+            <p>Settings content goes here.</p>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
