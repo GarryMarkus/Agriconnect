@@ -54,6 +54,39 @@ def login(request):
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 
     return render(request, 'login.html')
+def submitland(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            location = data.get('location')
+            size = data.get('size')
+            description = data.get('description', '')
+            image = request.FILES.get('image')
+            land_paper = request.FILES.get('land_paper')
+            address = data.get('address')
+            irrigation_facilities = data.get('irrigation_facilities')
+            district = data.get('district')
+            
+            if not location or not size or not address or not irrigation_facilities or not district:
+                return JsonResponse({'status': 'error', 'message': 'All fields are required'}, status=400)
+            
+            land = Land(
+                location=location,
+                size=size,
+                description=description,
+                image=image,
+                land_paper=land_paper,
+                address=address,
+                irrigation_facilities=irrigation_facilities,
+                district=district,
+                provider=request.user
+            )
+            land.save()
+            return JsonResponse({'status':'success','message': 'Land added successfully'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+        
+    return render(request, 'submit.html')
 
 @login_required
 def worker_dashboard(request):
@@ -61,9 +94,7 @@ def worker_dashboard(request):
         user_profile = request.user.userprofile
         if user_profile.user_type != 'worker':
             return redirect('login')
-
-        lands = Land.objects.filter(status='available')
-        return render(request, 'worker.html', {'lands': lands})
+        return render(request, 'worker.html')
     except UserProfile.DoesNotExist:
         return redirect('login')
 
@@ -75,7 +106,7 @@ def provider_dashboard(request):
 
     lands = Land.objects.filter(provider=request.user)
     
-    return render(request, 'provider_dashboard.html', {'lands': lands})
+    return render(request, 'landprovider.html', {'lands': lands})
 
 @login_required
 def add_land(request):
@@ -131,34 +162,32 @@ def profile(request):
 
 @csrf_exempt
 def register(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         try:
             data = json.loads(request.body)
-            required_fields = ['name', 'email', 'password', 'phone', 'userType']
-            if not all(data.get(field) for field in required_fields):
-                return JsonResponse({'status': 'error', 'message': 'All required fields must be filled'}, status=400)
+            
+            user_type = data.get("userType")
+            full_name = data.get("name")
+            email = data.get("email")
+            phone = data.get("phone")
+            password = data.get("password")
+            confirm_password = data.get("confirmPassword")
+            aadhar = data.get("aadhar", "")
+            gst = data.get("gst", "")
+            if password != confirm_password:
+                return JsonResponse({"error": "Passwords do not match"}, status=400)
 
-            if User.objects.filter(email=data['email']).exists():
-                return JsonResponse({'status': 'error', 'message': 'Email already registered'}, status=400)
-
-            user = User.objects.create_user(username=data['email'], email=data['email'], password=data['password'], first_name=data['name'])
-            UserProfile.objects.create(
-                user=user,
-                user_type=data['userType'],
-                phone_number=data['phone'],
-                aadhar_number=data.get('aadhar') if data['userType'] in ['worker', 'provider'] else None,
-                gst_number=data.get('gst') if data['userType'] == 'buyer' else None
-            )
-
-            return JsonResponse({'status': 'success', 'message': 'Registration successful', 'redirect': '/login/'})
+            user = User.objects.create_user(username=email, email=email, password=password)
+            user.first_name = full_name.split()[0]  
+            user.last_name = " ".join(full_name.split()[1:])  
+            user.save()
+            return JsonResponse({"message": "User registered successfully"}, status=201)
 
         except json.JSONDecodeError:
-            return JsonResponse({'status': 'error', 'message': 'Invalid JSON format'}, status=400)
+            return JsonResponse({"error": "Invalid JSON format"}, status=400)
         except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
-
-    return render(request, 'register.html')
-
+            return JsonResponse({"error": str(e)}, status=500)
+    return JsonResponse({"error": "Method not allowed"}, status=405)
 def index(request):
     return render(request, 'index.html')
 

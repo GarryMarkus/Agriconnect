@@ -32,22 +32,20 @@ class UserProfile(models.Model):
         if self.user_type == 'buyer' and not self.gst_number:
             raise ValidationError("GST number is required for buyers")
 class Land(models.Model):
-    STATUS_CHOICES = [
-        ('available', 'Available'),
-        ('in_use', 'In Use'),
-    ]
-
-    provider = models.ForeignKey(User, on_delete=models.CASCADE)  
-    location = models.CharField(max_length=255)
-    size = models.FloatField(help_text="Size of land in acres")
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
-    description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='lands/', blank=True, null=True)
-    land_paper = models.FileField(upload_to='land_papers/', blank=True, null=True)  
-    created_at = models.DateTimeField(auto_now_add=True)
+    provider = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_area = models.DecimalField(null=True,max_digits=10, decimal_places=2)
+    survey_number = models.CharField(null=True,max_length=100)
+    state = models.CharField(null=True,max_length=100)
+    istrict = models.CharField(max_length=255, default='Default District')
+    address = models.TextField(null=True, blank=True)
+    previous_crop = models.CharField(null=True,max_length=200)
+    irrigation_facilities = models.CharField(max_length=200 ,null=True)
+    ownership_document = models.FileField(null=True,upload_to="documents/")
+    survey_document = models.FileField(null=True,upload_to="documents/")
+    recent_photos = models.FileField(null=True,upload_to="documents/")
 
     def __str__(self):
-        return f"{self.location} - {self.get_status_display()}"
+        return f"Land {self.survey_number} - {self.owner.username}"
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

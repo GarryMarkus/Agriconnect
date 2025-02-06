@@ -24,7 +24,7 @@
                 <i data-feather="map"></i>
                 Lands
             </a>
-            <a href="#submit-land" class="nav-item">
+            <a href="{3}" class="nav-item">
                 <i data-feather="file-text"></i>
                 Submit
             </a>
@@ -45,7 +45,6 @@
             </div>
         </div>
     </div>
-
     <div class="main-content">
         <div class="welcome-header">
             <h1>Welcome back, John!</h1>
@@ -169,72 +168,7 @@
             </div>
         </section>
 
-        <section class="submit-land" id="submit-land">
-            <h2>Submit Your Land</h2>
-            <h3>Please provide detailed information about your agricultural land</h3>
-            <form>
-                <fieldset>
-                    <legend>Basic Details</legend>
-                    <label for="owner-name">Owner's Full Name:</label>
-                    <input type="text" id="owner-name" name="owner-name" required>
-                    <br>
-                    <label for="contact-number">Contact Number:</label>
-                    <input type="tel" id="contact-number" name="contact-number" required>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Land Details</legend>
-                    <label for="total-area">Total Area (In Acres):</label>
-                    <input type="number" id="total-area" name="total-area" required>
-                    <br>
-                    <label for="land-survey-number">Land Survey Number:</label>
-                    <input type="text" id="land-survey-number" name="land-survey-number" required>
-                    <br>
-                    <label for="state">State:</label>
-                    <input type="text" id="state" name="state" required>
-                    <br>
-                    <label for="district">District:</label>
-                    <input type="text" id="district" name="district" required>
-                    <br>
-                    <label for="address">Complete Address:</label>
-                    <textarea id="address" name="address" required></textarea>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Agricultural History</legend>
-                    <label for="previous-crop">Previous Crop (last 3 years):</label>
-                    <input type="text" id="previous-crop" name="previous-crop" required>
-                    <br>
-                    <label>Irrigation Facilities:</label>
-                    <br>
-                    <input type="checkbox" id="well" name="irrigation-facilities" value="Well">
-                    <label for="well">Well</label>
-                    <br>
-                    <input type="checkbox" id="canal" name="irrigation-facilities" value="Canal">
-                    <label for="canal">Canal</label>
-                    <br>
-                    <input type="checkbox" id="drip" name="irrigation-facilities" value="Drip Irrigation">
-                    <label for="drip">Drip Irrigation</label>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Land Documents</legend>
-                    <label for="ownership-document">Land Ownership Document:</label>
-                    <input type="file" id="ownership-document" name="ownership-document" required>
-                    <br>
-                    <label for="survey-document">Land Survey Documents:</label>
-                    <input type="file" id="survey-document" name="survey-document" required>
-                    <br>
-                    <label for="recent-photos">Recent Land Photos:</label>
-                    <input type="file" id="recent-photos" name="recent-photos" required multiple>
-                </fieldset>
-
-                <div class="button-container">
-                    <button type="button" onclick="cancelForm()">Cancel</button>
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
-        </section>
+        
 
         <section class="land-documents" id="land-documents">
             <h2>Land Documents</h2>
