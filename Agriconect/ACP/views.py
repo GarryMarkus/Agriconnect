@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum 
 import json
+from django.db import transaction
 from .models import UserProfile, Land
 from .utils.gemini_config import get_gemini_response
 import asyncio
@@ -185,13 +186,6 @@ def profile(request):
     except UserProfile.DoesNotExist:
         return redirect('login')
 
-from django.db import transaction
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.models import User
-from .models import UserProfile
-import json
 
 @csrf_exempt
 def register(request):
