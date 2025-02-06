@@ -187,7 +187,7 @@ def register(request):
             return JsonResponse({"error": "Invalid JSON format"}, status=400)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
-    return JsonResponse({"error": "Method not allowed"}, status=405)
+    return render(request,'register.html')
 def index(request):
     return render(request, 'index.html')
 
