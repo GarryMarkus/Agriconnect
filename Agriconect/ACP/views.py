@@ -185,6 +185,14 @@ def profile(request):
     except UserProfile.DoesNotExist:
         return redirect('login')
 
+from django.db import transaction
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+from .models import UserProfile
+import json
+
 @csrf_exempt
 def register(request):
     if request.method == "POST":
@@ -192,27 +200,66 @@ def register(request):
             data = json.loads(request.body)
             
             user_type = data.get("userType")
-            full_name = data.get("name")
+            name = data.get("name")
             email = data.get("email")
             phone = data.get("phone")
             password = data.get("password")
             confirm_password = data.get("confirmPassword")
             aadhar = data.get("aadhar", "")
             gst = data.get("gst", "")
+
+            
+            if not all([user_type, name, email, phone, password]):
+                return JsonResponse({
+                    "status": "error",
+                    "message": "All required fields must be filled"
+                }, status=400)
+
             if password != confirm_password:
-                return JsonResponse({"error": "Passwords do not match"}, status=400)
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Passwords do not match"
+                }, status=400)
 
-            user = User.objects.create_user(username=email, email=email, password=password)
-            user.first_name = full_name.split()[0]  
-            user.last_name = " ".join(full_name.split()[1:])  
-            user.save()
-            return JsonResponse({"message": "User registered successfully"}, status=201)
+            if User.objects.filter(email=email).exists():
+                return JsonResponse({
+                    "status": "error",
+                    "message": "Email already registered"
+                }, status=400)
 
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON format"}, status=400)
+            with transaction.atomic():
+                User.objects.filter(email=email).delete()
+                
+                user = User.objects.create_user(
+                    username=email,
+                    email=email,
+                    password=password,
+                    first_name=name.split()[0],
+                    last_name=' '.join(name.split()[1:]) if len(name.split()) > 1 else ''
+                )
+                UserProfile.objects.filter(user=user).delete()
+                
+                UserProfile.objects.create(
+                    user=user,
+                    user_type=user_type,
+                    phone_number=phone,
+                    aadhar_number=aadhar if user_type in ['worker', 'provider'] else '',
+                    gst_number=gst if user_type == 'buyer' else ''
+                )
+
+            return JsonResponse({
+                "status": "success",
+                "message": "Registration successful"
+            }, status=201)
+
         except Exception as e:
-            return JsonResponse({"error": str(e)}, status=500)
-    return render(request,'register.html')
+            print(f"Registration error: {str(e)}")  
+            return JsonResponse({
+                "status": "error",
+                "message": f"Registration failed: {str(e)}"
+            }, status=500)
+
+    return render(request, 'register.html')
 def index(request):
     return render(request, 'index.html')
 
