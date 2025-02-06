@@ -1,142 +1,162 @@
-// Initialize Feather Icons
-feather.replace();
+document.addEventListener('DOMContentLoaded', function() {
+    feather.replace();
 
-// Add click handlers for navigation
-document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', (e) => {
-        // Remove active class from all items
-        document.querySelectorAll('.nav-item').forEach(navItem => {
-            navItem.classList.remove('active');
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            document.querySelectorAll('.nav-item').forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            e.currentTarget.classList.add('active');
         });
-        // Add active class to clicked item
-        e.currentTarget.classList.add('active');
     });
+
+    initializeFormHandlers();
+    initializeMessages();
 });
 
-
-function cancelForm() {
-    
-    const form = document.querySelector('.submit-land form');
-    form.reset(); 
+function resetForm() {
+    document.getElementById('landSubmissionForm').reset();
 }
-let totalLandArea = 0;
-let activePlots = 0;
-let pendingApprovals = 0;
 
-// Function to handle file uploads
+function viewLandDetails(landId) {
+    console.log('Viewing land:', landId);
+    // Add your view implementation here
+}
+
+function editLand(landId) {
+    console.log('Editing land:', landId);
+    // Add your edit implementation here
+}
+
 function handleFileUpload(event) {
-    const files = event.target.files; // Get the uploaded files
+    const files = event.target.files;
     const uploadedDocumentsContainer = document.getElementById('uploaded-documents');
-
-    // Clear previous documents
     uploadedDocumentsContainer.innerHTML = '';
-
-    // Loop through the files and create elements for each
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const documentElement = document.createElement('div');
-        documentElement.classList.add('document-item');
-
-        // Create a span for the file name
-        const fileName = document.createElement('span');
-        fileName.textContent = file.name;
-
-        // Create a view button
-        const viewButton = document.createElement('button');
-        viewButton.textContent = 'View';
-        viewButton.onclick = function() {
-            viewDocument(file);
-        };
-
-        // Create a delete button
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.onclick = function() {
-            deleteDocument(documentElement);
-        };
-
-        // Append elements to the document item
-        documentElement.appendChild(fileName);
-        documentElement.appendChild(viewButton);
-        documentElement.appendChild(deleteButton);
-
-        // Append the document item to the container
+    Array.from(files).forEach(file => {
+        const documentElement = createDocumentElement(file);
         uploadedDocumentsContainer.appendChild(documentElement);
-    }
-}
-
-// Function to handle form submission
-async function handleFormSubmit(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    // Get the total area from the form input
-    const totalAreaInput = document.getElementById('total-area');
-    const totalArea = parseFloat(totalAreaInput.value) || 0;
-
-    // Prepare the data to be sent as JSON
-    const formData = {
-        totalArea: totalArea,
-        // Add other form fields as needed
-    };
-
-    try {
-        // Simulate sending data to a server and receiving a JSON response
-        const response = await simulateServerResponse(formData);
-        
-        // Process the JSON response
-        updateStatistics(response);
-
-        // Optionally, reset the form after submission
-        const form = document.querySelector('.submit-land form');
-        form.reset(); // Reset the form fields
-    } catch (error) {
-        console.error('Error submitting form:', error);
-    }
-}
-
-// Simulate a server response
-function simulateServerResponse(data) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            // Simulate a JSON response
-            const response = {
-                totalLandArea: data.totalArea, // Example response
-                activePlots: 1, // Increment active plots
-                pendingApprovals: 1 // Increment pending approvals
-            };
-            resolve(response);
-        }, 1000); // Simulate a delay
     });
 }
 
-// Function to update statistics based on the JSON response
-function updateStatistics(response) {
-    // Update statistics
-    totalLandArea += response.totalLandArea; // Add the total area from the response
-    activePlots += response.activePlots; // Increment active plots
-    pendingApprovals += response.pendingApprovals; // Increment pending approvals
+function createDocumentElement(file) {
+    const documentElement = document.createElement('div');
+    documentElement.classList.add('document-item');
 
-    // Update the stats grid
-    document.getElementById('total-land-area').textContent = totalLandArea.toFixed(2); // Update total land area
-    document.getElementById('active-plots').textContent = activePlots; // Update active plots
-    document.getElementById('pending-approvals').textContent = pendingApprovals; // Update pending approvals
+    const fileName = document.createElement('span');
+    fileName.textContent = file.name;
+
+    const viewButton = document.createElement('button');
+    viewButton.textContent = 'View';
+    viewButton.onclick = () => viewDocument(file);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.onclick = () => deleteDocument(documentElement);
+
+    documentElement.append(fileName, viewButton, deleteButton);
+    return documentElement;
 }
 
-// Function to view the document (for demonstration purposes)
 function viewDocument(file) {
     const url = URL.createObjectURL(file);
-    window.open(url); // Open the file in a new tab
+    window.open(url);
 }
 
-// Function to delete the document
 function deleteDocument(documentElement) {
-    documentElement.remove(); // Remove the document element from the DOM
+    documentElement.remove();
 }
 
-// Function to redirect to the form
 function redirectToForm() {
-    window.location.href = '#submit-land'; // Replace with the actual ID or URL of your form section
+    document.querySelector('#submit-land').scrollIntoView({ 
+        behavior: 'smooth' 
+    });
 }
 
-// Attach the form submit handler
-document.querySelector('.submit-land form').addEventListener('submit', handleFormSubmit);
+function initializeFormHandlers() {
+    const form = document.getElementById('landSubmissionForm');
+    if (form) {
+        form.addEventListener('submit', handleFormSubmit);
+    }
+
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    fileInputs.forEach(input => {
+        input.addEventListener('change', handleFileUpload);
+    });
+}
+
+async function handleFormSubmit(event) {
+    const form = event.target;
+    const requiredFields = form.querySelectorAll('[required]');
+    let isValid = true;
+
+    requiredFields.forEach(field => {
+        if (!field.value) {
+            isValid = false;
+            showError(field, 'This field is required');
+        }
+    });
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+}
+
+function showError(field, message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = message;
+    
+    const existingError = field.parentElement.querySelector('.error-message');
+    if (existingError) {
+        existingError.remove();
+    }
+    
+    field.parentElement.appendChild(errorDiv);
+    field.classList.add('error');
+}
+
+function initializeMessages() {
+    const messages = document.querySelectorAll('.messages .alert');
+    messages.forEach(message => {
+        const closeButton = document.createElement('button');
+        closeButton.innerHTML = '&times;';
+        closeButton.className = 'close-message';
+        closeButton.onclick = () => message.remove();
+        message.appendChild(closeButton);
+        setTimeout(() => message.remove(), 5000);
+    });
+}
+
+function updateWeather(data) {
+    const weatherCard = document.querySelector('.weather-card');
+    if (weatherCard && data) {
+        weatherCard.querySelector('.temperature').textContent = `${data.temperature}°C`;
+        weatherCard.querySelector('.condition').textContent = data.condition;
+        weatherCard.querySelector('.humidity .value').textContent = `${data.humidity}%`;
+        weatherCard.querySelector('.wind .value').textContent = `${data.windSpeed} km/h`;
+        weatherCard.querySelector('.rainfall .value').textContent = `${data.rainfall} mm`;
+    }
+}
+
+function updateStatistics(data) {
+    if (data) {
+        const elements = {
+            totalArea: document.querySelector('.stat-card .value[data-stat="total-area"]'),
+            activePlots: document.querySelector('.stat-card .value[data-stat="active-plots"]'),
+            pendingApprovals: document.querySelector('.stat-card .value[data-stat="pending-approvals"]'),
+            monthlyRevenue: document.querySelector('.stat-card .value[data-stat="monthly-revenue"]')
+        };
+
+        for (const [key, element] of Object.entries(elements)) {
+            if (element && data[key] !== undefined) {
+                element.textContent = data[key];
+            }
+        }
+    }
+}
+
+// Make functions available globally
+window.resetForm = resetForm;
+window.viewLandDetails = viewLandDetails;
+window.editLand = editLand;
+window.redirectToForm = redirectToForm;

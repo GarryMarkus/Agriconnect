@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum 
 import json
 from .models import UserProfile, Land
 from .utils.gemini_config import get_gemini_response
@@ -85,8 +86,7 @@ def submitland(request):
             return JsonResponse({'status':'success','message': 'Land added successfully'})
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
-        
-    return render(request, 'submit.html')
+    return redirect('provider_dashboard')
 
 @login_required
 def worker_dashboard(request):
@@ -100,46 +100,71 @@ def worker_dashboard(request):
 
 
 @login_required
-def provider_dashboard(request):
-    if request.user.userprofile.user_type != 'provider':
+def submit_land(request):
+    if not request.user.userprofile.user_type == 'provider':
+        messages.error(request, 'Unauthorized access')
         return redirect('login')
-
-    lands = Land.objects.filter(provider=request.user)
-    
-    return render(request, 'landprovider.html', {'lands': lands})
-
-@login_required
-def add_land(request):
-    if request.user.userprofile.user_type != 'provider':
-        return JsonResponse({'status': 'error', 'message': 'Unauthorized access'}, status=403)
 
     if request.method == 'POST':
         try:
-            location = request.POST.get('location')
-            size = request.POST.get('size')
-            description = request.POST.get('description', '')
-            image = request.FILES.get('image')
-            land_paper = request.FILES.get('land_paper')
 
-            if not location or not size:
-                return JsonResponse({'status': 'error', 'message': 'Location and size are required'}, status=400)
+            irrigation_facilities = request.POST.getlist('irrigation_facilities')
+            irrigation_facilities_str = ','.join(irrigation_facilities) if irrigation_facilities else ''
 
-            Land.objects.create(
+            land = Land(
                 provider=request.user,
-                location=location,
-                size=size,
-                description=description,
-                image=image,
-                land_paper=land_paper
+                total_area=request.POST.get('total_area'),
+                survey_number=request.POST.get('survey_number'),
+                state=request.POST.get('state'),
+                district=request.POST.get('district'),
+                address=request.POST.get('address'),
+                previous_crop=request.POST.get('previous_crop'),
+                irrigation_facilities=irrigation_facilities_str,
             )
 
-            return JsonResponse({'status': 'success', 'message': 'Land added successfully'})
+            if 'ownership_document' in request.FILES:
+                land.ownership_document = request.FILES['ownership_document']
+            if 'survey_document' in request.FILES:
+                land.survey_document = request.FILES['survey_document']
+            if 'recent_photos' in request.FILES:
+                land.recent_photos = request.FILES['recent_photos']
+
+            required_fields = ['total_area', 'survey_number', 'state', 'district', 'address']
+            for field in required_fields:
+                if not getattr(land, field):
+                    raise ValueError(f'{field.replace("_", " ").title()} is required')
+            land.save()
+            messages.success(request, 'Land submitted successfully!')
+            return redirect('provider_dashboard')
+
+        except ValueError as ve:
+            messages.error(request, str(ve))
+            return redirect('submit_land')
         except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+            messages.error(request, f'Error submitting land: {str(e)}')
+            return redirect('submit_land')
+    context = {
+        'lands': Land.objects.filter(provider=request.user)
+    }
+    return render(request, 'landprovider.html', context)
 
-    return render(request, 'add_land.html')
 
-
+@login_required
+def provider_dashboard(request):
+    if request.user.userprofile.user_type != 'provider':
+        return redirect('login')
+    lands = Land.objects.filter(provider=request.user)
+    total_area = lands.aggregate(Sum('total_area'))['total_area__sum'] or 0
+    active_plots = lands.count()
+    pending_approvals = lands.filter(status='pending').count()  
+    
+    context = {
+        'lands': lands,
+        'total_area': total_area,
+        'active_plots': active_plots,
+        'pending_approvals': pending_approvals,
+    }
+    return render(request, 'landprovider.html', context)
 @login_required
 def buyer_dashboard(request):
     try:
@@ -232,30 +257,31 @@ def update_profile(request):
 @login_required
 def change_password(request):
     if request.method == 'POST':
+        old_password = request.POST.get('old_password')
+        new_password1 = request.POST.get('new_password1')
+        new_password2 = request.POST.get('new_password2')
+
+        if not old_password or not new_password1 or not new_password2:
+            messages.error(request, "All fields are required!")
+            return redirect('change_password')
+
+        if not request.user.check_password(old_password):
+            messages.error(request, "Current password is incorrect!")
+            return redirect('change_password')
+
+        if new_password1 != new_password2:
+            messages.error(request, "New passwords don't match!")
+            return redirect('change_password')
+
         try:
-            data = json.loads(request.body)
-            old_password = data.get('old_password')
-            new_password1 = data.get('new_password')
-            new_password2 = data.get('new_password')
-        
-            if not request.user.check_password(old_password):
-                messages.error(request, "Incorrect old password!")
-                return redirect('/profile/')
-        
-            if new_password1 != new_password2:
-                messages.error(request, "Passwords didn't match!")
-                return redirect('/profile/')
-        
-            user = request.user
-            user.set_password(new_password1)
-            user.save()
-        
-            messages.success(request, "Password changed successfully!")
-            return redirect('/profile/')
-        except json.JSONDecodeError:
-            messages.error(request, "Invalid JSON format!")
-            return redirect('/profile/')
-    
+            request.user.set_password(new_password1)
+            request.user.save()
+            messages.success(request, "Password changed successfully! Please login again.")
+            return redirect('login')
+        except Exception as e:
+            messages.error(request, f"An error occurred: {str(e)}")
+            return redirect('change_password')
+
     return render(request, 'changepassword.html')
 
 @login_required
