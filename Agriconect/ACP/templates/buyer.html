@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriConnect Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/buyer.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">AgriConnect</div>
+            <nav>
+                <a href="#" class="active"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="#"><i class="fas fa-store"></i> Marketplace</a>
+                <a href="#"><i class="fas fa-shopping-bag"></i> Orders</a>
+                <a href="#"><i class="fas fa-shield-alt"></i> Quality</a>
+                <a href="#"><i class="fas fa-chart-bar"></i> Analytics</a>
+            </nav>
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/40" alt="Profile" class="avatar">
+                <div class="user-info">
+                    <h4>John Doe</h4>
+                    <p>john@example.com</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h1>Buyer Dashboard</h1>
+                <div class="header-icons">
+                    <i class="fas fa-bell"></i>
+                    <i class="fas fa-cog"></i>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                    <div class="stat-info">
+                        <span>Active Orders</span>
+                        <h3 id="active-orders">0</h3>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="stat-info">
+                        <span>Total Purchases</span>
+                        <h3 id="total-purchases">0</h3>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-leaf"></i></div>
+                    <div class="stat-info">
+                        <span>Crop Varieties</span>
+                        <h3>12</h3>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                    <div class="stat-info">
+                        <span>Seasonal Budget</span>
+                        <h3 id="seasonal-budget">₹ 0.00</h3>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="content-grid">
+                <!-- Available Crops -->
+                <div class="crops-section">
+                    <h2>Available Crops</h2>
+                    <div class="crop-cards">
+                        <div class="crop-card">
+                            <div class="crop-info">
+                                <h3>Organic Wheat</h3>
+                                <p>Quality: Premium</p>
+                            </div>
+                            <div class="crop-price">
+                                <h4>₹ 29,784/ton</h4>
+                                <p>Available: -- tons</p>
+                            </div>
+                        </div>
+                        <div class="crop-card">
+                            <div class="crop-info">
+                                <h3>Rice</h3>
+                                <p>Quality: Standard</p>
+                            </div>
+                            <div class="crop-price">
+                                <h4>₹ 24,528/ton</h4>
+                                <p>Available: -- tons</p>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="activity-section">
+                    <h2>Recent Activity</h2>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon new">+</div>
+                            <div class="activity-details">
+                                <h4>New order placed</h4>
+                                <p>Ordered 20 tons of organic wheat</p>
+                                <span class="time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon complete">✓</div>
+                            <div class="activity-details">
+                                <h4>Order completed</h4>
+                                <p>Rice delivery received</p>
+                                <span class="time">1 day ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <input type="text" placeholder="Search Crop.." class="search-input" />
+                <select class="dropdown" id="type-dropdown">
+                    <option value="all">All Type</option>
+                    <!-- Add more options here -->
+                </select>
+                <select class="dropdown" id="quantity-dropdown">
+                    <option value="all">All Quantities</option>
+                    <!-- Add more options here -->
+                </select>
+                <button class="filter-button">Filter</button>
+            </div>
+
+            <div class="products-grid">
+                <!-- Organic Wheat Card -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-name">Organic Wheat</div>
+                        <span class="badge premium">Premium</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Available Quantity:</span>
+                        <span class="detail-value">50 tons</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Price per ton:</span>
+                        <span class="detail-value">₹ 29,780</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Harvest Date:</span>
+                        <span class="detail-value">--</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Location:</span>
+                        <span class="detail-value">Punjab Region</span>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="btn btn-outline">View Details</button>
+                        <button class="btn btn-primary">Purchase Now</button>
+                    </div>
+                </div>
+        
+                <!-- Basmati Rice Card -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-name">Basmati Rice</div>
+                        <span class="badge standard">Standard</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Available Quantity:</span>
+                        <span class="detail-value">75 tons</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Price per ton:</span>
+                        <span class="detail-value">₹ 24,524</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Harvest Date:</span>
+                        <span class="detail-value">--</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Location:</span>
+                        <span class="detail-value">Haryana Region</span>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="btn btn-outline">View Details</button>
+                        <button class="btn btn-primary">Purchase Now</button>
+                    </div>
+                </div>
+        
+                <!-- Yellow Corn Card -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-name">Yellow Corn</div>
+                        <span class="badge premium">Premium</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Available Quantity:</span>
+                        <span class="detail-value">100 tons</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Price per ton:</span>
+                        <span class="detail-value">₹ 25,840</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Harvest Date:</span>
+                        <span class="detail-value">--</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Location:</span>
+                        <span class="detail-value">UP Region</span>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="btn btn-outline">View Details</button>
+                        <button class="btn btn-primary" id="purchase">Purchase Now</button>
+                    </div>
+                </div>
+
+                <!-- Organic Wheat Card -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-name">Organic Wheat</div>
+                        <span class="badge premium">Premium</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Available Quantity:</span>
+                        <span class="detail-value">50 tons</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Price per ton:</span>
+                        <span class="detail-value">₹ 29,780</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Harvest Date:</span>
+                        <span class="detail-value">--</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Location:</span>
+                        <span class="detail-value">Punjab Region</span>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="btn btn-outline">View Details</button>
+                        <button class="btn btn-primary">Purchase Now</button>
+                    </div>
+                </div>
+        
+                <!-- Basmati Rice Card -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-name">Basmati Rice</div>
+                        <span class="badge standard">Standard</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Available Quantity:</span>
+                        <span class="detail-value">75 tons</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Price per ton:</span>
+                        <span class="detail-value">₹ 24,524</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Harvest Date:</span>
+                        <span class="detail-value">--</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Location:</span>
+                        <span class="detail-value">Haryana Region</span>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="btn btn-outline">View Details</button>
+                        <button class="btn btn-primary">Purchase Now</button>
+                    </div>
+                </div>
+        
+                <!-- Yellow Corn Card -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-name">Yellow Corn</div>
+                        <span class="badge premium">Premium</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Available Quantity:</span>
+                        <span class="detail-value">100 tons</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Price per ton:</span>
+                        <span class="detail-value">₹ 25,840</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Harvest Date:</span>
+                        <span class="detail-value">--</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Location:</span>
+                        <span class="detail-value">UP Region</span>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="btn btn-outline">View Details</button>
+                        <button class="btn btn-primary" id="purchase">Purchase Now</button>
+                    </div>
+                </div>
+
+                <!-- Organic Wheat Card -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-name">Organic Wheat</div>
+                        <span class="badge premium">Premium</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Available Quantity:</span>
+                        <span class="detail-value">50 tons</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Price per ton:</span>
+                        <span class="detail-value">₹ 29,780</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Harvest Date:</span>
+                        <span class="detail-value">--</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Location:</span>
+                        <span class="detail-value">Punjab Region</span>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="btn btn-outline">View Details</button>
+                        <button class="btn btn-primary">Purchase Now</button>
+                    </div>
+                </div>
+        
+                <!-- Basmati Rice Card -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-name">Basmati Rice</div>
+                        <span class="badge standard">Standard</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Available Quantity:</span>
+                        <span class="detail-value">75 tons</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Price per ton:</span>
+                        <span class="detail-value">₹ 24,524</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Harvest Date:</span>
+                        <span class="detail-value">--</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Location:</span>
+                        <span class="detail-value">Haryana Region</span>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="btn btn-outline">View Details</button>
+                        <button class="btn btn-primary">Purchase Now</button>
+                    </div>
+                </div>
+        
+                <!-- Yellow Corn Card -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <div class="product-name">Yellow Corn</div>
+                        <span class="badge premium">Premium</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Available Quantity:</span>
+                        <span class="detail-value">100 tons</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Price per ton:</span>
+                        <span class="detail-value">₹ 25,840</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Harvest Date:</span>
+                        <span class="detail-value">--</span>
+                    </div>
+                    <div class="product-detail">
+                        <span>Location:</span>
+                        <span class="detail-value">UP Region</span>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="btn btn-outline">View Details</button>
+                        <button class="btn btn-primary" id="purchase">Purchase Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="purchase-history">
+                <h2>Purchase History</h2>
+                <div id="cart-items"></div>
+                <div class="total-amount">
+                    <strong>Total Amount: ₹<span id="total-amount">0</span></strong>
+                    <button id="confirm-purchase" style="display: none;">Confirm Purchase</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="{% static 'js/buyer.js' %}"></script>
+</body>
+</html>
