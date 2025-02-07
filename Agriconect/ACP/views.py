@@ -148,8 +148,6 @@ def submit_land(request):
         'lands': Land.objects.filter(provider=request.user)
     }
     return render(request, 'landprovider.html', context)
-
-
 @login_required
 def provider_dashboard(request):
     if request.user.userprofile.user_type != 'provider':
@@ -172,7 +170,7 @@ def buyer_dashboard(request):
         user_profile = request.user.userprofile
         if user_profile.user_type != 'buyer':
             return redirect('login')
-        return render(request, 'buyer_dashboard.html')
+        return render(request, 'buyer.html')
     except UserProfile.DoesNotExist:
         return redirect('login')
 

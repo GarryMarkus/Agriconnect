@@ -21,10 +21,10 @@
                 <a href="#"><i class="fas fa-chart-bar"></i> Analytics</a>
             </nav>
             <div class="user-profile">
-                <img src="https://via.placeholder.com/40" alt="Profile" class="avatar">
+                <div class="avatar">{{ user.get_full_name|make_list|first }}</div>
                 <div class="user-info">
-                    <h4>John Doe</h4>
-                    <p>john@example.com</p>
+                    <a href="{% url 'profile' %}" style="text-decoration:none;"><h4>{{ user.get_full_name }}</h4>
+                    <p>{{user.email }}</p></a>
                 </div>
             </div>
         </aside>

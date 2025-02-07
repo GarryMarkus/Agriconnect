@@ -13,4 +13,5 @@ urlpatterns = [
     path("logout/",exit, name='logout'),
     path("provider_dashboard/",provider_dashboard,name="provider"),
     path('submit_land/',submit_land, name='submit_land'),
+    path("buyer_dashboard/",buyer_dashboard, name="buyer"),
 ]
