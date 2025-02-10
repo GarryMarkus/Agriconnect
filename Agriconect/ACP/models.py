@@ -31,6 +31,7 @@ class UserProfile(models.Model):
             raise ValidationError("Aadhar number is required for workers and providers")
         if self.user_type == 'buyer' and not self.gst_number:
             raise ValidationError("GST number is required for buyers")
+
 class Land(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
@@ -56,6 +57,37 @@ class Land(models.Model):
     def __str__(self):
         return f"Land {self.survey_number} - {self.provider.username}"
 
+class Order(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('confirmed', 'Confirmed'),
+        ('processing', 'Processing'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled')
+    ]
+    
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
+    order_number = models.PositiveIntegerField(unique=True, editable=False)  
+    items = models.JSONField()  
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+
+    def __str__(self):
+        return f"Order #{self.order_number} by {self.buyer.username}"
+
+    @classmethod
+    def get_next_order_number(cls):
+        """Get the next available order number"""
+        last_order = cls.objects.order_by('-order_number').first()
+        if last_order:
+            return last_order.order_number + 1
+        return 1
+
+    def save(self, *args, **kwargs):
+        if not self.order_number:
+            self.order_number = self.get_next_order_number()
+        super().save(*args, **kwargs)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

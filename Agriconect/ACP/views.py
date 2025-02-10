@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum 
 import json
 from django.db import transaction
-from .models import UserProfile, Land
+from .models import UserProfile, Land, Order
 from .utils.gemini_config import get_gemini_response
 import asyncio
 
@@ -327,3 +327,61 @@ def change_password(request):
 def exit(request):
     logout(request)
     return redirect('/')
+
+@login_required
+@csrf_exempt
+def create_order(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            cart_items = data.get('cart')
+            total_amount = data.get('totalAmount')
+            
+            order = Order.objects.create(
+                buyer=request.user,
+                items=cart_items,
+                total_amount=total_amount,
+                status='pending' 
+            )
+            
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Order created successfully',
+                'orderId': order.id
+            })
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=500)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
+
+@login_required
+def get_order_history(request):
+    try:
+        orders = Order.objects.filter(buyer=request.user).order_by('-created_at')
+        
+        active_orders_count = orders.filter(status__in=['pending', 'processing']).count()
+        total_purchases = orders.exclude(status='cancelled').count()
+        total_amount = orders.exclude(status='cancelled').aggregate(total=Sum('total_amount'))['total'] or 0
+        
+        orders_data = []
+        for order in orders:
+            orders_data.append({
+                'id': order.id,
+                'order_number': order.order_number,
+                'items': order.items,
+                'total_amount': float(order.total_amount),
+                'created_at': order.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                'status': order.status
+            })
+            
+        return JsonResponse({
+            'status': 'success',
+            'orders': orders_data,
+            'active_orders_count': active_orders_count,
+            'total_purchases': total_purchases,
+            'total_spent': float(total_amount)
+        })
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)

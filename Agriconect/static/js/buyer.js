@@ -36,6 +36,47 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.boxShadow = 'none';
         });
     });
+    document.querySelectorAll('.btn-primary').forEach(button => {
+        button.addEventListener('click', function() {
+            const productCard = this.closest('.product-card');
+            const productName = productCard.querySelector('.product-name').textContent;
+            const priceText = productCard.querySelector('.detail-value').textContent;
+            const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+            addToCart(productName, price, 1);
+        });
+    });
+
+    loadOrderHistory();
+
+    // Calculate total amount from all product cards
+    function calculateTotalAmount() {
+        const productCards = document.querySelectorAll('.product-card');
+        let total = 0;
+        
+        productCards.forEach(card => {
+            const priceText = card.querySelector('.detail-value').textContent;
+            const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+            if (!isNaN(price)) {
+                total += price;
+            }
+        });
+        
+        // Update the seasonal budget display
+        const seasonalBudgetElement = document.getElementById('seasonal-budget');
+        if (seasonalBudgetElement) {
+            seasonalBudgetElement.textContent = formatCurrency(total);
+        }
+        
+        return total;
+    }
+
+    // Calculate initial total
+    calculateTotalAmount();
+
+    const confirmButton = document.getElementById('confirm-purchase');
+    if (confirmButton) {
+        confirmButton.addEventListener('click', confirmPurchase);
+    }
 });
 
 document.querySelectorAll('.btn').forEach(button => {
@@ -47,18 +88,18 @@ document.querySelectorAll('.btn').forEach(button => {
     });
 });
 
-let cart = []; // Array to hold cart items
-let totalAmount = 0; // Variable to hold total amount
-let activeOrders = 0; // Variable to hold active orders
-let totalPurchases = 0; // Variable to hold total purchases
-let seasonalBudget = 0; // Variable to hold seasonal budget
+let cart = []; 
+let totalAmount = 0; 
+let activeOrders = 0; 
+let totalPurchases = 0; 
+let seasonalBudget = 0; 
 
 function addToCart(cropName, pricePerTon, quantity) {
     const existingItem = cart.find(item => item.name === cropName);
     
     if (existingItem) {
         existingItem.quantity += quantity;
-        existingItem.total = existingItem.price * existingItem.quantity; // Update total for the existing item
+        existingItem.total = existingItem.price * existingItem.quantity;
     } else {
         const item = {
             name: cropName,
@@ -66,63 +107,170 @@ function addToCart(cropName, pricePerTon, quantity) {
             quantity: quantity,
             total: pricePerTon * quantity
         };
-        cart.push(item); // Add item to cart
+        cart.push(item);
     }
 
     totalAmount = cart.reduce((sum, item) => sum + item.total, 0);
-    updateCartDisplay(); // Update the cart display
-    updateStats(); // Update stats display
+    updateCartDisplay();
+    
+    const confirmButton = document.getElementById('confirm-purchase');
+    if (confirmButton) {
+        confirmButton.style.display = cart.length > 0 ? 'block' : 'none';
+    }
 }
 
 function updateCartDisplay() {
     const cartItemsDiv = document.getElementById('cart-items');
-    cartItemsDiv.innerHTML = ''; // Clear existing items
-
+    cartItemsDiv.innerHTML = ''; 
     cart.forEach(item => {
         const itemDiv = document.createElement('div');
-        itemDiv.className = 'cart-item'; // Add class for styling
-        itemDiv.textContent = `${item.name} - Quantity: ${item.quantity}, Price: ₹${item.price.toFixed(2)}, Total: ₹${item.total.toFixed(2)}`;
+        itemDiv.className = 'cart-item';
+        itemDiv.textContent = `${item.name} - Quantity: ${item.quantity}, Price: ${formatCurrency(item.price)}, Total: ${formatCurrency(item.total)}`;
         cartItemsDiv.appendChild(itemDiv);
     });
 
-    document.getElementById('total-amount').textContent = totalAmount.toFixed(2); // Update total amount display
 
-    // Show confirm purchase button if there are items in the cart
+    const totalAmountSpan = document.getElementById('total-amount');
+    if (totalAmountSpan) {
+        totalAmountSpan.textContent = formatCurrency(totalAmount);
+    }
+
     document.getElementById('confirm-purchase').style.display = cart.length > 0 ? 'block' : 'none';
 }
 
 function updateStats() {
-    // Update active orders and total purchases
-    activeOrders += 1; // Increment active orders
-    totalPurchases += 1; // Increment total purchases
-    seasonalBudget += totalAmount; // Update seasonal budget
+    
+    activeOrders += 1; 
+    totalPurchases += 1; 
+    seasonalBudget += totalAmount; 
 
-    // Update the display
+    
     document.getElementById('active-orders').textContent = activeOrders;
     document.getElementById('total-purchases').textContent = totalPurchases;
-    document.getElementById('seasonal-budget').textContent = seasonalBudget.toFixed(2);
+    document.getElementById('seasonal-budget').textContent = formatCurrency(seasonalBudget);
 }
 
-// Confirm purchase button functionality
-document.getElementById('confirm-purchase').addEventListener('click', () => {
-    // Logic to handle the confirmation of the purchase
-    alert('Purchase confirmed!'); // Placeholder for confirmation action
 
-    // Reset cart data
-    cart = []; // Clear the cart
-    totalAmount = 0; // Reset total amount
-    updateCartDisplay(); // Update the cart display to reflect the reset
-});
+function updateDashboardStats(data) {
+    document.getElementById('active-orders').textContent = data.active_orders_count;
+    document.getElementById('total-purchases').textContent = data.total_purchases;
+    document.getElementById('seasonal-budget').textContent = formatCurrency(data.total_spent);
+}
 
-// Attach purchaseCrop to the .btn-primary buttons
-document.querySelectorAll('.btn-primary').forEach(button => {
-    button.addEventListener('click', () => {
-        const card = button.closest('.product-card'); // Change to match your HTML structure
-        const cropName = card.querySelector('.product-name').textContent; // Get crop name
-        const pricePerTon = parseFloat(card.querySelectorAll('.detail-value')[1].textContent.replace('₹', '').replace(',', '').trim()); // Get price per ton (second detail-value)
 
-        const quantity = 1; // You can modify this to get the desired quantity
+function formatCurrency(amount) {
+    return `₹ ${parseFloat(amount).toLocaleString('en-IN', {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2
+    })}`;
+}
 
-        addToCart(cropName, pricePerTon, quantity); // Call addToCart
-    });
-});
+
+function getStatusBadgeClass(status) {
+    const statusClasses = {
+        'pending': 'badge-warning',
+        'confirmed': 'badge-info',
+        'processing': 'badge-primary',
+        'completed': 'badge-success',
+        'cancelled': 'badge-danger'
+    };
+    return statusClasses[status] || 'badge-secondary';
+}
+
+async function confirmPurchase() {
+    try {
+        const response = await fetch('/create_order/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                cart: cart,
+                totalAmount: totalAmount
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            // Clear the cart
+            cart = [];
+            totalAmount = 0;
+            updateCartDisplay();
+            
+         
+            loadOrderHistory();
+            
+            alert('Order created successfully!');
+        } else {
+            alert('Error: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error creating order. Please try again.');
+    }
+}
+
+
+async function loadOrderHistory() {
+    try {
+        const response = await fetch('/get_order_history/');
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+        
+            updateDashboardStats(data);
+            
+            const historyContainer = document.getElementById('cart-items');
+            historyContainer.innerHTML = '<h3>Order History</h3>';
+            
+            if (data.orders.length === 0) {
+                historyContainer.innerHTML += '<p class="no-orders">No orders found</p>';
+                return;
+            }
+            
+          
+            const ordersContainer = document.createElement('div');
+            ordersContainer.className = 'orders-container';
+            
+            data.orders.forEach(order => {
+                const orderDiv = document.createElement('div');
+                orderDiv.className = 'order-item';
+                
+                let itemsHtml = '';
+                order.items.forEach(item => {
+                    itemsHtml += `
+                        <div class="order-item-detail">
+                            ${item.name} - Quantity: ${item.quantity}, Price: ${formatCurrency(item.price)}
+                        </div>
+                    `;
+                });
+                
+                orderDiv.innerHTML = `
+                    <div class="order-header">
+                        <span>Order #${order.order_number}</span>
+                        <span>Date: ${order.created_at}</span>
+                        <span class="status-badge ${getStatusBadgeClass(order.status)}">${order.status.toUpperCase()}</span>
+                    </div>
+                    <div class="order-items">
+                        ${itemsHtml}
+                    </div>
+                    <div class="order-total">
+                        Total Amount: ${formatCurrency(order.total_amount)}
+                    </div>
+                `;
+                ordersContainer.appendChild(orderDiv);
+            });
+            
+            historyContainer.appendChild(ordersContainer);
+            
+         
+            const totalAmountSpan = document.getElementById('total-amount');
+            if (totalAmountSpan) {
+                totalAmountSpan.textContent = formatCurrency(data.total_spent);
+            }
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}

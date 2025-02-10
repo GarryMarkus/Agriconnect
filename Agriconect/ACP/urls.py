@@ -14,4 +14,6 @@ urlpatterns = [
     path("provider_dashboard/",provider_dashboard,name="provider"),
     path('submit_land/',submit_land, name='submit_land'),
     path("buyer_dashboard/",buyer_dashboard, name="buyer"),
+    path('create_order/', create_order, name='create_order'),
+    path('get_order_history/', get_order_history, name='get_order_history'),
 ]

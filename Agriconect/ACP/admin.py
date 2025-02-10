@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile,Land
+from .models import UserProfile,Land,Order
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
@@ -8,3 +8,4 @@ class UserProfileAdmin(admin.ModelAdmin):
     search_fields = ('user__email', 'phone_number', 'aadhar_number')
 
 admin.site.register(Land)
+admin.site.register(Order)
