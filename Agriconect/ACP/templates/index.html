@@ -20,137 +20,226 @@
         <div class="logo-text">AgriConnect</div>
     </div>
 
-    <nav>
-        <div class="logo">
-            AgriConnect
-        </div>
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+    <nav class="navbar">
+        <div class="logo">AgriConnect</div>
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-            <a href="{% url 'login' %}" class="login-btn">Login</a>
+            <a href="{% url 'login' %}"><button class="login-btn">Login</button></a>
         </div>
     </nav>
 
-    <section class="hero" id="home">
+    <main class="hero">
         <div class="hero-content">
-            <h1>Welcome to AgriConnect</h1>
-            <p>Bridging the gap between agricultural workers, land providers, and buyers</p>
+            <h1>Connecting Agriculture's <span class="highlight">Future</span></h1>
+            <p>Bridge the gap between agricultural workers, land providers, and buyers. Join our sustainable ecosystem for smarter farming.</p>
+            <div class="cta-buttons">
+                <button class="primary-btn">Get Started</button>
+                <button class="secondary-btn">Learn More</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <video class="hero-video" autoplay loop muted>
+                <source src="{% static 'assets/Banner.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </main>
+
+    <section class="about">
+        <h2>About AgriConnect</h2>
+        <div class="about-container">
+            <div class="mission-card">
+                <h3>Our Mission</h3>
+                <p>AgriConnect bridges the gap between agricultural workers, land providers, and buyers in the agricultural sector. We create a sustainable ecosystem that facilitates agricultural practices while educating individuals about farming and crop management.</p>
+                <ul class="mission-list">
+                    <li>Connecting agricultural workers with opportunities</li>
+                    <li>Facilitating land rental for sustainable farming</li>
+                    <li>Providing educational resources and training</li>
+                </ul>
+            </div>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3 class="highlight">1000+</h3>
+                    <p>Connected Farmers</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="highlight">500+</h3>
+                    <p>Land Providers</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="highlight">200+</h3>
+                    <p>Active Buyers</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="highlight">50+</h3>
+                    <p>Training Courses</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <h2>Key Features</h2>
+        <div class="features-container">
+            <div class="feature-card">
+                <svg class="feature-icon" viewBox="0 0 24 24">
+                    <path d="M16 17v2H2v-2s0-4 7-4 7 4 7 4m-3.5-9.5A3.5 3.5 0 1 0 9 11a3.5 3.5 0 0 0 3.5-3.5m3.44 5.5A5.32 5.32 0 0 1 18 17v2h4v-2s0-3.63-6.06-4M15 4a3.39 3.39 0 0 0-1.93.59 5 5 0 0 1 0 5.82A3.39 3.39 0 0 0 15 11a3.5 3.5 0 0 0 0-7z"/>
+                </svg>
+                <h3>User Roles</h3>
+                <ul>
+                    <li>Agricultural Workers</li>
+                    <li>Land Providers</li>
+                    <li>Crop Buyers</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <svg class="feature-icon" viewBox="0 0 24 24">
+                    <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4z"/>
+                </svg>
+                <h3>Services</h3>
+                <ul>
+                    <li>Job Matching</li>
+                    <li>Land Rental Management</li>
+                    <li>Demand Aggregation</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <svg class="feature-icon" viewBox="0 0 24 24">
+                    <path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/>
+                </svg>
+                <h3>E-Learning</h3>
+                <ul>
+                    <li>Educational Resources</li>
+                    <li>Online Workshops</li>
+                    <li>Expert Webinars</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="features-container secondary-features">
+            <div class="feature-card">
+                <svg class="feature-icon" viewBox="0 0 24 24">
+                    <path d="M19 4h-4L7.11 16.63 4.5 12 9 4H5L.5 12 5 20h4l7.89-12.63L19.5 12 15 20h4l4.5-8z"/>
+                </svg>
+                <h3>Crop Production</h3>
+                <ul>
+                    <li>Demand-driven cultivation</li>
+                    <li>Resource optimization</li>
+                    <li>Quality control measures</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <svg class="feature-icon" viewBox="0 0 24 24">
+                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                </svg>
+                <h3>Profit Sharing Model</h3>
+                <ul>
+                    <li>Transparent distribution</li>
+                    <li>Fair compensation</li>
+                    <li>Sustainable returns</li>
+                </ul>
+            </div>
         </div>
     </section>
 
-    <section class="benefits" id="about">
-        <h2>About Us</h2>
-        <div class="benefits-grid">
-            <div class="benefit-card">
-                <i class="fas fa-handshake"></i>
-                <h3>Connect</h3>
-                <p>Connect with land providers, workers, and buyers in one platform</p>
+    <section class="who-we-serve">
+        <h2>Who We Serve</h2>
+        <p class="section-subtitle">Our platform connects three essential pillars of the agricultural ecosystem</p>
+        
+        <div class="service-cards">
+            <div class="service-card">
+                <div class="icon-circle green">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <h3>Agricultural Workers</h3>
+                <ul>
+                    <li>Find Job Opportunities</li>
+                    <li>Access Training Resources</li>
+                    <li>Skill Development</li>
+                </ul>
             </div>
-            <div class="benefit-card">
-                <i class="fas fa-book-reader"></i>
-                <h3>Learn</h3>
-                <p>Access educational resources about farming and crop management</p>
+
+            <div class="service-card">
+                <div class="icon-circle brown">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                </div>
+                <h3>Land Providers</h3>
+                <ul>
+                    <li>List Available Land</li>
+                    <li>Manage Properties</li>
+                    <li>Track Utilization</li>
+                </ul>
             </div>
-            <div class="benefit-card">
-                <i class="fas fa-seedling"></i>
-                <h3>Grow</h3>
-                <p>Build sustainable agricultural practices and grow your business</p>
+
+            <div class="service-card">
+                <div class="icon-circle green">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
+                </div>
+                <h3>Buyers</h3>
+                <ul>
+                    <li>Place Crop Orders</li>
+                    <li>Track Production</li>
+                    <li>Quality Assurance</li>
+                </ul>
             </div>
         </div>
     </section>
+    
+    <section class="primary-service">
+        <h2>Our Services</h2>
+        <div class="primary-service-container">
+            
+            <div class="ps-card">
+                <svg class="ps-icon" viewBox="0 0 24 24">
+                    <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4z"/>
+                </svg>
+                <h3>Job Matching</h3>
+                <p>Connect with agricultural opportunities based on your skills and location</p>
+                <ul>
+                    <li>Skill Based Matching</li>
+                    <li>Location Preferences</li>
+                    <li>Real Time Notifications</li>
+                </ul>
+            </div>
+            
+            <div class="ps-card">
+                <svg class="ps-icon" viewBox="0 0 24 24" style="fill: #faf7f2;">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                </svg>
+                <h3>Land Rental Management</h3>
+                <p>Efficiently manage and list agricultural land for optimal utilization</p>
+                <ul>
+                    <li>Soil Quality Analysis</li>
+                    <li>Geographic Mapping</li>
+                    <li>Rental Agreements</li>
+                </ul>
+            </div>
 
-    <section id="contact" class="contact-section">
-        <h2>Contact Us</h2>
-        <div class="contact-container">
-            <div class="contact-form-container">
-                <form action="/submit-contact" method="POST" class="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact-number">Contact Number:</label>
-                        <input type="tel" id="contact-number" name="contact-number" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message:</label>
-                        <textarea id="message" name="message" rows="4" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-button">Submit</button>
-                </form>
+            <div class="ps-card">
+                <svg class="ps-icon" viewBox="0 0 24 24">
+                    <path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/>
+                </svg>
+                <h3>E-Learning</h3>
+                <p>Access comprehensive agricultural education and training</p>
+                <ul>
+                    <li>Online Courses</li>
+                    <li>Expert Webinars</li>
+                    <li>Resource Library</li>
+                </ul>
             </div>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.4378712619105!2d77.38136967533605!3d28.646605075657085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cf17794bd56d1%3A0x4b15419727490640!2sCharms%20Solitaire!5e0!3m2!1sen!2sin!4v1737098986396!5m2!1sen!2sin" 
-                width="600" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
-        <div class="social-media">
-            <h3>Follow Us</h3>
-            <a href="https://facebook.com" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://twitter.com" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
-            <a href="https://instagram.com" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
         </div>
     </section>
-
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-list">
-                <h3>Contact Us</h3>
-                <ul>
-                    <li><i class="fas fa-map-marker-alt"></i> Address: Flat 404 Crossing Republic, Ghaziabad</li>
-                    <li><i class="fas fa-phone"></i> <a href="tel:+919450361621">+91 9450361621</a></li>
-                    <li><i class="fas fa-phone"></i> <a href="tel:+919450361621">+91 7505995231</a></li>
-                    <li><i class="fas fa-envelope"></i> <a href="mailto:prakhartiwari1931@gmail.com">prakhartiwari1931@gmail.com</a></li>
-                    <li>
-                        <i class="fab fa-facebook-f"></i>
-                        <i class="fab fa-twitter"></i>
-                        <i class="fab fa-instagram"></i>
-                    </li>
-                </ul>
-            </div>
-            <div class="footer-list">
-                <h3>Important Links</h3>
-                <ul>
-                    <li><a href="#">Sign In</a></li>
-                    <li><a href="#">Register</a></li>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">IT Support</a></li>
-                </ul>
-            </div>
-            <div class="footer-list">
-                <h3>Get to Know Us</h3>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Career</a></li>
-                    <li><a href="#">Press Release</a></li>
-                    <li><a href="#">Blog</a></li>
-                </ul>
-            </div>
-            <div class="footer-list">
-                <h3>Creators</h3>
-                <ul>
-                    <li>Mayank Yadav</li>
-                    <li>Prakhar Mehrotra</li>
-                    <li>Prakhar Tiwari</li>
-                    <li>Prem Singh</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2025 AgriConnect. All rights reserved.</p>
-        </div>
-    </footer>
 
     <div class="chatbot-container">
         <button class="chatbot-toggle" id="chatbotToggle">
