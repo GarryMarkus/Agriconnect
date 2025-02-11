@@ -50,9 +50,8 @@
     width: 100%;
     padding: 1rem;
     background: white;
-    border: 1px solid #3a7c2b;
+    border: 1.2px solid #3a7c2b;
     color: #3a7c2b;
-    border: none;
     border-radius: 5px;
     font-size: 1rem;
     cursor: pointer;
@@ -67,6 +66,7 @@
 .auth-redirect {
     text-align: center;
     margin-top: 1.5rem;
+    color: black;
 }
 
 .auth-redirect a {
