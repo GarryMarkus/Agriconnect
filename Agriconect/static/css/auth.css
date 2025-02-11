@@ -17,7 +17,7 @@
 }
 
 .auth-box h2 {
-    color: var(--primary-green);
+    color: #338836;
     text-align: center;
     margin-bottom: 2rem;
 }
@@ -29,7 +29,7 @@
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
-    color: var(--text-dark);
+    color: black;
 }
 
 .form-group input,
@@ -49,8 +49,9 @@
 .auth-btn {
     width: 100%;
     padding: 1rem;
-    background: var(--primary-green);
-    color: white;
+    background: white;
+    border: 1px solid #3a7c2b;
+    color: #3a7c2b;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
@@ -60,6 +61,7 @@
 
 .auth-btn:hover {
     background: #3a7c2b;
+    color: white;
 }
 
 .auth-redirect {
@@ -68,7 +70,7 @@
 }
 
 .auth-redirect a {
-    color: var(--primary-green);
+    color: green;
     text-decoration: none;
     font-weight: bold;
 }
