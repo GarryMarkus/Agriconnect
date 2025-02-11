@@ -172,22 +172,22 @@ nav a:hover {
 }
 
 .timeline {
-    width: 1200px;
-    height: 300px; /* Adjust as needed */
+    width: 700px;
+    height: 400px; /* Adjust as needed */
     margin: auto;
     margin-bottom: 10px;
 }
 .timeline img{
-    width: 600px;
-    height: 250px;
+    width: 650px;
+    height: 400px;
 }
 
 #know-the-region img {
     width: 990px; /* Adjust as needed */
     height: 600px; /* Adjust as needed */
-    margin: 0 auto;
-    /* background-image: url("indianSoils.png"); */
-    /* background-size: cover; */
+    margin: auto;
+    margin-top: 20px;
+    margin-left: 250px;
     margin-bottom: 10px;
 }
 #know-the-region h2{
