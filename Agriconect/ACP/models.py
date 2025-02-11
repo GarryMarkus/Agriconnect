@@ -38,19 +38,24 @@ class Land(models.Model):
         ('approved', 'Approved'),
         ('rejected', 'Rejected')
     ]
+    current_state = [
+        ("free","Free"),
+        ("occupied","Occupied"),
+    ]
 
     provider = models.ForeignKey(User, on_delete=models.CASCADE)
     total_area = models.DecimalField(null=True, max_digits=10, decimal_places=2)
     survey_number = models.CharField(null=True, max_length=100)
     state = models.CharField(null=True, max_length=100)
-    district = models.CharField(max_length=255, default='Default District')  # Fixed typo from 'istrict'
+    district = models.CharField(max_length=255, default='Default District') 
     address = models.TextField(null=True, blank=True)
     previous_crop = models.CharField(null=True, max_length=200)
     irrigation_facilities = models.CharField(max_length=200, null=True)
     ownership_document = models.FileField(null=True, upload_to="documents/")
     survey_document = models.FileField(null=True, upload_to="documents/")
     recent_photos = models.FileField(null=True, upload_to="documents/")
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')  # Added status field
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')  
+    current_state = models.CharField(max_length=10, choices=current_state, default='free')  
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
@@ -67,7 +72,7 @@ class Order(models.Model):
     ]
     
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
-    order_number = models.PositiveIntegerField(unique=True, editable=False)  
+    order_number = models.PositiveIntegerField(unique=True, editable=False)    
     items = models.JSONField()  
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
