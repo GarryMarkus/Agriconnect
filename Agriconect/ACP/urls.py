@@ -16,4 +16,7 @@ urlpatterns = [
     path("buyer_dashboard/",buyer_dashboard, name="buyer"),
     path('create_order/', create_order, name='create_order'),
     path('get_order_history/', get_order_history, name='get_order_history'),
+    path('admin-dashboard/', admin_dashboard, name='admin_dashboard'),
+    path('admin-assign-land/',assign_land, name='assign_land'),
+    path('admin-complete-assignment/<int:assignment_id>/', complete_assignment, name='complete_assignment'),
 ]

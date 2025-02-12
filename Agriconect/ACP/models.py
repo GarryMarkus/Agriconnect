@@ -13,6 +13,7 @@ class UserProfile(models.Model):
     
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='userprofile')
     user_type = models.CharField(max_length=20, choices=USER_TYPES)
+    is_available = models.BooleanField(default=True)
     phone_number = models.CharField(max_length=15)
     aadhar_number = models.CharField(max_length=12, null=True, blank=True)
     gst_number = models.CharField(max_length=15, null=True, blank=True)
@@ -102,3 +103,18 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
+
+class LandAssignment(models.Model):
+    land = models.ForeignKey(Land, on_delete=models.CASCADE)
+    worker = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assigned_lands')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    assigned_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=[
+        ('active', 'Active'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled')
+    ], default='active')
+
+    def __str__(self):
+        return f"Land {self.land.id} assigned to {self.worker.username} for Order #{self.order.order_number}"
+

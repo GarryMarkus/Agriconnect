@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-semibold">Admin Dashboard</span>
+                </div>
+                <div class="flex items-center">
+                    <a href="/logout" class="text-gray-700 hover:text-gray-900 px-3 py-2">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Pending Orders -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Pending Orders</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-3 border-b">Order #</th>
+                            <th class="px-6 py-3 border-b">Buyer</th>
+                            <th class="px-6 py-3 border-b">Total Amount</th>
+                            <th class="px-6 py-3 border-b">Created At</th>
+                            <th class="px-6 py-3 border-b">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in pending_orders %}
+                        <tr>
+                            <td class="px-6 py-4 border-b">#{{ order.order_number }}</td>
+                            <td class="px-6 py-4 border-b">{{ order.buyer.username }}</td>
+                            <td class="px-6 py-4 border-b">${{ order.total_amount }}</td>
+                            <td class="px-6 py-4 border-b">{{ order.created_at|date:"M d, Y" }}</td>
+                            <td class="px-6 py-4 border-b">
+                                <button 
+                                    onclick="showAssignmentModal('{{ order.id }}')"
+                                    class="bg-blue-500 text-white px-4 py-2 rounded">
+                                    Assign
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Active Assignments -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Active Assignments</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-3 border-b">Order #</th>
+                            <th class="px-6 py-3 border-b">Land</th>
+                            <th class="px-6 py-3 border-b">Worker</th>
+                            <th class="px-6 py-3 border-b">Assigned Date</th>
+                            <th class="px-6 py-3 border-b">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for assignment in active_assignments %}
+                        <tr>
+                            <td class="px-6 py-4 border-b">#{{ assignment.order.order_number }}</td>
+                            <td class="px-6 py-4 border-b">{{ assignment.land.address }}</td>
+                            <td class="px-6 py-4 border-b">{{ assignment.worker.username }}</td>
+                            <td class="px-6 py-4 border-b">{{ assignment.assigned_date|date:"M d, Y" }}</td>
+                            <td class="px-6 py-4 border-b">
+                                <button 
+                                    onclick="completeAssignment('{{ assignment.id }}')"
+                                    class="bg-green-500 text-white px-4 py-2 rounded">
+                                    Complete
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Assignment Modal -->
+        <div id="assignmentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden">
+            <div class="bg-white p-8 max-w-md mx-auto mt-20 rounded">
+                <h3 class="text-xl font-bold mb-4">Assign Land and Worker</h3>
+                <form id="assignmentForm">
+                    <input type="hidden" id="orderId" name="orderId">
+                    <div class="mb-4">
+                        <label class="block mb-2">Select Land</label>
+                        <select id="landId" name="landId" class="w-full p-2 border rounded">
+                            {% for land in free_lands %}
+                            <option value="{{ land.id }}">{{ land.address }} ({{ land.total_area }} acres)</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2">Select Worker</label>
+                        <select id="workerId" name="workerId" class="w-full p-2 border rounded">
+                            {% for profile in free_workers %}
+                            <option value="{{ profile.user.id }}">{{ profile.user.username }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" onclick="closeModal()" class="mr-2 px-4 py-2 border rounded">Cancel</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Assign</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>

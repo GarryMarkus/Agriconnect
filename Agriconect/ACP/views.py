@@ -9,9 +9,11 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum 
 import json
 from django.db import transaction
-from .models import UserProfile, Land, Order
+from .models import UserProfile, Land, Order,LandAssignment
 from .utils.gemini_config import get_gemini_response
 import asyncio
+from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import Q
 
 def start_template(request):
     return render(request, 'index.html')
@@ -56,6 +58,7 @@ def login(request):
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 
     return render(request, 'login.html')
+@login_required(login_url="/login/")
 def submitland(request):
     if request.method == 'POST':
         try:
@@ -89,7 +92,7 @@ def submitland(request):
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     return redirect('provider_dashboard')
 
-@login_required
+@login_required(login_url="/login/")
 def worker_dashboard(request):
     try:
         user_profile = request.user.userprofile
@@ -100,7 +103,7 @@ def worker_dashboard(request):
         return redirect('login')
 
 
-@login_required
+@login_required(login_url="/login/")
 def submit_land(request):
     if not request.user.userprofile.user_type == 'provider':
         messages.error(request, 'Unauthorized access')
@@ -148,7 +151,7 @@ def submit_land(request):
         'lands': Land.objects.filter(provider=request.user)
     }
     return render(request, 'landprovider.html', context)
-@login_required
+@login_required(login_url="/login/")
 def provider_dashboard(request):
     if request.user.userprofile.user_type != 'provider':
         return redirect('login')
@@ -164,7 +167,7 @@ def provider_dashboard(request):
         'pending_approvals': pending_approvals,
     }
     return render(request, 'landprovider.html', context)
-@login_required
+@login_required(login_url="/login/")
 def buyer_dashboard(request):
     try:
         user_profile = request.user.userprofile
@@ -174,7 +177,7 @@ def buyer_dashboard(request):
     except UserProfile.DoesNotExist:
         return redirect('login')
 
-@login_required
+@login_required(login_url="/login/")
 def profile(request):
     try:
         user_profile = request.user.userprofile
@@ -274,7 +277,7 @@ async def chatbot_response(request):
             return JsonResponse({'status': 'error', 'message': 'An error occurred'}, status=500)
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-@login_required
+@login_required(login_url="/login/")
 def update_profile(request):
     user = request.user
     user_profile, created = UserProfile.objects.get_or_create(user=user)
@@ -293,7 +296,7 @@ def update_profile(request):
         messages.success(request, "Profile updated successfully!")
         return redirect('profile') 
     return render(request, 'profile.html', {'user_profile': user_profile})
-@login_required
+@login_required(login_url="/login/")
 def change_password(request):
     if request.method == 'POST':
         old_password = request.POST.get('old_password')
@@ -383,5 +386,90 @@ def get_order_history(request):
             'total_purchases': total_purchases,
             'total_spent': float(total_amount)
         })
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    
+
+
+@staff_member_required
+def admin_dashboard(request):
+    context = {
+        'pending_orders': Order.objects.filter(status='pending'),
+        'free_lands': Land.objects.filter(current_state='free', status='approved'),
+        'free_workers': UserProfile.objects.filter(
+            user_type='worker', 
+            is_available=True  
+        ).select_related('user'),
+        'active_assignments': LandAssignment.objects.filter(status='active'),
+    }
+    return render(request, 'dashboard.html', context)
+
+@staff_member_required
+def assign_land(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            order_id = data.get('order_id')
+            land_id = data.get('land_id')
+            worker_id = data.get('worker_id')
+
+            with transaction.atomic():
+                order = Order.objects.get(id=order_id)
+                land = Land.objects.get(id=land_id)
+                worker = User.objects.get(id=worker_id)
+
+            
+                assignment = LandAssignment.objects.create(
+                    land=land,
+                    worker=worker,
+                    order=order
+                )
+
+                
+                land.current_state = "Occupied"
+                land.save()
+
+                order.status = 'processing'
+                order.save()
+                worker.userprofile.is_available = False
+                worker.userprofile.save()
+                return JsonResponse({
+                    'status': 'success',
+                    'message': 'Assignment created successfully'
+                })
+
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
+
+@staff_member_required
+def complete_assignment(request, assignment_id):
+    try:
+        with transaction.atomic():
+            assignment = LandAssignment.objects.get(id=assignment_id)
+            assignment.status = 'completed'
+            assignment.save()
+            assignment.land.current_state = 'free'
+            assignment.land.save()
+
+            worker = assignment.worker
+            has_active_assignments = LandAssignment.objects.filter(
+                worker=worker, status='active'
+            ).exists()
+            if not has_active_assignments:
+                worker.userprofile.is_available = True  
+                worker.userprofile.save()
+
+            order = assignment.order
+            if not LandAssignment.objects.filter(order=order, status='active').exists():
+                order.status = 'completed'
+                order.save()
+            
+            return JsonResponse({'status': 'success', 'message': 'Assignment completed successfully'})
+
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
