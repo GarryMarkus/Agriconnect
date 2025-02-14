@@ -76,11 +76,15 @@ WSGI_APPLICATION = 'Agriconect.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-import dj_database_url
-
-
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'agriconnect_db',
+        'USER': 'agriconnect_user', 
+        'PASSWORD': 'admin@123',  
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
 
 
