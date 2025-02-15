@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'Agriconect.wsgi.application'
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv("postgresql://agrimitra_db:xahICzYAErqyfY3jRmAijMliw5ASNduQ@dpg-cuo9r4bqf0us738ue72g-a/agrimitra_db_ity5"))
+    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
 }
 
 
