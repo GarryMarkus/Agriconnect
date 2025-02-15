@@ -75,17 +75,11 @@ WSGI_APPLICATION = 'Agriconect.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'agriconnect_db',
-        'USER': 'agriconnect_user', 
-        'PASSWORD': 'admin@123',  
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+import dj_database_url
 
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv("postgresql://agrimitra_db:xahICzYAErqyfY3jRmAijMliw5ASNduQ@dpg-cuo9r4bqf0us738ue72g-a/agrimitra_db_ity5"))
+}
 
 
 # Password validation
