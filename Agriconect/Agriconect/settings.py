@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ["agrimitra-4u36.onrender.com", "127.0.0.1", "localhost"]
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,12 +78,12 @@ WSGI_APPLICATION = 'Agriconect.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-import dj_database_url
-
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -135,3 +136,19 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GEMINI_API_KEY = 'AIzaSyAw5Y2GRIeGowjBCVQRWXG0Qu5w-4-ELU8'  
+
+JAZZMIN_INDEX_TITLE = "Agriconnect Admin"
+JAZZMIN_SETTINGS = {
+    "site_title": "Agriconnect Admin",
+    "site_header": "Agriconnect Admin",
+    "site_brand": "Agriconnect Admin",
+    "welcome_sign": "Welcome to the Agriconnect Admin Panel",
+    "search_model": ["ACP.Land", "ACP.LandAssignment", "ACP.Order"],
+    "icons": {
+        "ACP.Land": "fas fa-map",
+        "ACP.LandAssignment": "fas fa-user-check",
+        "ACP.Order": "fas fa-shopping-cart",},
+    "topmenu_links": [
+        {"name": "Order Assignment", "url": "/admin-dashboard/", "icon": "fas fa-tachometer-alt"},
+    ],
+}
