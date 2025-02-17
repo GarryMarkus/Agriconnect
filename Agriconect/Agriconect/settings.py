@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ["agrimitra-4u36.onrender.com", "127.0.0.1", "localhost"]
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ACP',
-
 ]
 
 MIDDLEWARE = [
@@ -135,3 +135,19 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GEMINI_API_KEY = 'AIzaSyAw5Y2GRIeGowjBCVQRWXG0Qu5w-4-ELU8'  
+
+JAZZMIN_INDEX_TITLE = "Agriconnect Admin"
+JAZZMIN_SETTINGS = {
+    "site_title": "Agriconnect Admin",
+    "site_header": "Agriconnect Admin",
+    "site_brand": "Agriconnect Admin",
+    "welcome_sign": "Welcome to the Agriconnect Admin Panel",
+    "search_model": ["ACP.Land", "ACP.LandAssignment", "ACP.Order"],
+    "icons": {
+        "ACP.Land": "fas fa-map",
+        "ACP.LandAssignment": "fas fa-user-check",
+        "ACP.Order": "fas fa-shopping-cart",},
+    "topmenu_links": [
+        {"name": "Order Assignment", "url": "/admin-dashboard/", "icon": "fas fa-tachometer-alt"},
+    ],
+}

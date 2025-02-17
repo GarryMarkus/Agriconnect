@@ -404,6 +404,7 @@ def admin_dashboard(request):
     }
     return render(request, 'dashboard.html', context)
 
+
 @staff_member_required
 def assign_land(request):
     if request.method == 'POST':
