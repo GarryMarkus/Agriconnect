@@ -18,14 +18,39 @@ function type() {
 
 type();
 
-// Image slider functionality
-let currentIndex = 0;
-const images = document.querySelectorAll('.slider img');
 
-function showNextImage() {
-    images[currentIndex].classList.remove('active'); // Remove active class from current image
-    currentIndex = (currentIndex + 1) % images.length;
-    images[currentIndex].classList.add('active'); // Add active class to next image
-}
+document.querySelectorAll('.start-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const courseName = this.closest('.course-card').querySelector('.course-title').textContent;
+        alert(`Enrolling in: ${courseName}`);
+    });
+});
 
-setInterval(showNextImage, 4000); // Change image every 4 seconds
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle close button click
+    const closeButtons = document.querySelectorAll('.close-button');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const notification = this.closest('.notification');
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 300);
+        });
+    });
+
+    // Handle mark all as read
+    const markReadButton = document.querySelector('.mark-read');
+    markReadButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        const notifications = document.querySelectorAll('.notification');
+        notifications.forEach(notification => {
+            notification.style.borderLeftColor = '#ccc';
+        });
+        const badges = document.querySelectorAll('.notification-badge');
+        badges.forEach(badge => {
+            badge.style.backgroundColor = '#f0f0f0';
+            badge.style.color = '#666';
+        });
+    });
+});
