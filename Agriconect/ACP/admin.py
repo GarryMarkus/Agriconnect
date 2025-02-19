@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Land, LandAssignment, Order, UserProfile 
+from .models import Land, LandAssignment, Order, UserProfile,Notification
 from django.urls import reverse
 from django.utils.html import format_html
 
@@ -31,3 +31,9 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'user_type', 'phone_number', 'is_available')
     search_fields = ('user__username', 'phone_number')
     list_filter = ('user_type', 'is_available')
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'notification_type', 'message', 'created_at', 'is_read')
+    list_filter = ('notification_type', 'is_read')
+    search_fields = ('user__username', 'message')

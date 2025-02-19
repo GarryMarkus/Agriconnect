@@ -118,3 +118,18 @@ class LandAssignment(models.Model):
     def __str__(self):
         return f"Land {self.land.id} assigned to {self.worker.username} for Order #{self.order.order_number}"
 
+class Notification(models.Model):
+    NOTIFICATION_TYPES = (
+        ('job', 'Job Assignment'),
+        ('course', 'New Course'),
+        ('general', 'General Update'),
+    )
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    notification_type = models.CharField(max_length=20, choices=NOTIFICATION_TYPES, default='general')
+    message = models.TextField()
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.get_notification_type_display()} for {self.user.username}: {self.message}"

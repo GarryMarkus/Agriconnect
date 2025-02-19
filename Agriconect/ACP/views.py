@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum 
 import json
 from django.db import transaction
-from .models import UserProfile, Land, Order,LandAssignment
+from .models import UserProfile, Land, Order,LandAssignment,Notification
 from .utils.gemini_config import get_gemini_response
 import asyncio
 from django.contrib.admin.views.decorators import staff_member_required
@@ -406,48 +406,6 @@ def admin_dashboard(request):
 
 
 @staff_member_required
-def assign_land(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            order_id = data.get('order_id')
-            land_id = data.get('land_id')
-            worker_id = data.get('worker_id')
-
-            with transaction.atomic():
-                order = Order.objects.get(id=order_id)
-                land = Land.objects.get(id=land_id)
-                worker = User.objects.get(id=worker_id)
-
-            
-                assignment = LandAssignment.objects.create(
-                    land=land,
-                    worker=worker,
-                    order=order
-                )
-
-                
-                land.current_state = "Occupied"
-                land.save()
-
-                order.status = 'processing'
-                order.save()
-                worker.userprofile.is_available = False
-                worker.userprofile.save()
-                return JsonResponse({
-                    'status': 'success',
-                    'message': 'Assignment created successfully'
-                })
-
-        except Exception as e:
-            return JsonResponse({
-                'status': 'error',
-                'message': str(e)
-            }, status=500)
-
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
-
-@staff_member_required
 def complete_assignment(request, assignment_id):
     try:
         with transaction.atomic():
@@ -474,3 +432,68 @@ def complete_assignment(request, assignment_id):
 
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+
+@login_required(login_url="/login/")
+def get_worker_notifications(request):
+    notifications = Notification.objects.filter(user=request.user, is_read=False).order_by('-created_at')
+
+    notifications_data = [
+        {
+            'id': notif.id,
+            'message': notif.message,
+            'type': notif.notification_type,
+            'created_at': notif.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        }
+        for notif in notifications
+    ]
+    return JsonResponse({'notifications': notifications_data})
+
+
+
+
+def mark_notifications_read(request):
+    Notification.objects.filter(user=request.user, is_read=False).update(is_read=True)
+    return JsonResponse({'status': 'success', 'message': 'Notifications marked as read'})
+
+
+
+@staff_member_required
+def assign_job(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            order_id = data.get('order_id')
+            land_id = data.get('land_id')
+            worker_id = data.get('worker_id')
+
+            with transaction.atomic():
+                order = Order.objects.get(id=order_id)
+                land = Land.objects.get(id=land_id)
+                worker = User.objects.get(id=worker_id)
+
+                assignment = LandAssignment.objects.create(
+                    land=land,
+                    worker=worker,
+                    order=order
+                )
+
+                land.current_state = "Occupied"
+                land.save()
+                order.status = 'processing'
+                order.save()
+                worker.userprofile.is_available = False
+                worker.userprofile.save()
+
+                Notification.objects.create(
+                    user=worker,
+                    notification_type='job',
+                    message=f"You have been assigned a new job at {land.district}. Check details in your dashboard."
+                )
+
+                return JsonResponse({'status': 'success', 'message': 'Job assigned successfully'})
+
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)

@@ -17,6 +17,8 @@ urlpatterns = [
     path('create_order/', create_order, name='create_order'),
     path('get_order_history/', get_order_history, name='get_order_history'),
     path('admin-dashboard/', admin_dashboard, name='admin_dashboard'),
-    path('admin-assign-land/',assign_land, name='assign_land'),
+    path('admin-assign-land/',assign_job, name='assign_land'),
     path('admin-complete-assignment/<int:assignment_id>/', complete_assignment, name='complete_assignment'),
+    path('get_worker_notifications/', get_worker_notifications, name='get_worker_notifications'),
+    path('mark_notifications_read/', mark_notifications_read, name='mark_notifications_read'),
 ]
