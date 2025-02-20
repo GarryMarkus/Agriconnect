@@ -51,7 +51,7 @@ This project is licensed under the MIT License.
 
 ## 📞 Contact
 - **GitHub:** [prakkhar03](https://github.com/prakkhar03) 
-              [prakhar-174](https://github.com/prakhar-174)
-              [GarryMarkus](https://github.com/GarryMarkus)
-              [GreyCode07](https://github.com/GreyCode07) 
+-              [prakhar-174](https://github.com/prakhar-174)
+-              [GarryMarkus](https://github.com/GarryMarkus)
+-              [GreyCode07](https://github.com/GreyCode07) 
 - **Email:** *(Your email here)*
