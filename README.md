@@ -30,7 +30,7 @@ AgriConnect is an innovative platform designed to bridge the gap between agricul
    ```
 2. Navigate to the project folder:
    ```sh
-   cd Agriconnect
+   cd .\Agriconect\
    ```
 
 ## ⚙️ Setting up the Development Environment
@@ -50,7 +50,7 @@ Activate the virtual environment:
 
 ### 2️⃣ Install Dependencies
 ```sh
-pip install -r requirements.txt
+pip install -r "requirements.txt"
 ```
 
 ### 3️⃣ Configure Local Database
@@ -74,7 +74,7 @@ Follow the prompts to set a username, email, and password.
 python manage.py runserver
 ```
 The project should now be accessible at `http://127.0.0.1:8000/`.
-
+To access the admin panel, visit `http://127.0.0.1:8000/admin`
 ## 📌 Workflow
 - **User Registration:** Sign up as a Worker, Land Provider, Buyer, or Learner.
 - **Dashboard Access:** Users manage job listings, land rental, crop demand, or educational content.
