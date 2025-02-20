@@ -32,41 +32,7 @@ AgriConnect is an innovative platform designed to bridge the gap between agricul
    ```sh
    cd Agriconnect
    ```
-# 🌱 AgriConnect
 
-AgriConnect is an innovative platform designed to bridge the gap between agricultural workers, land providers, and buyers in the agricultural sector. The platform fosters a sustainable ecosystem, facilitating agricultural activities while offering educational resources.
-
-## 🌟 Features
-- **Job Matching:** Connects agricultural workers with job opportunities.
-- **Land Rental Management:** Enables land providers to list and rent land for farming.
-- **Demand Aggregation:** Buyers can request specific crops, driving production.
-- **E-Learning Resources:** Provides educational content on sustainable farming.
-- **Profit Sharing Model:** Ensures fair distribution of earnings among stakeholders.
-
-## 📷 Screenshots
-![Screenshot 1](https://i.postimg.cc/XvVDVhhx/Screenshot-2025-02-20-150032.png)
-![Screenshot 2](https://i.postimg.cc/qRqbKKp3/Screenshot-2025-02-20-150121.png)
-![Screenshot 3](https://i.postimg.cc/hGpZhsRn/Screenshot-2025-02-20-150154.png)
-![Screenshot 4](https://i.postimg.cc/TwskJPPH/Screenshot-2025-02-20-150209.png)
-![Screenshot 5](https://i.postimg.cc/rstfnL0y/Screenshot-2025-02-20-150247.png)
-![Screenshot 6](https://i.postimg.cc/t7Q28mW3/Screenshot-2025-02-20-150319.png)
-
-## 🛠️ Tech Stack
-- **Frontend:** HTML, CSS, JavaScript
-- **Backend:** (Specify if applicable, e.g., Node.js, Django, Flask)
-- **Database:** (Mention MySQL, Firebase, MongoDB, etc.)
-- **Libraries/Frameworks:** (e.g., Bootstrap, GSAP for animations, etc.)
-
-## 🚀 Installation & Usage
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/prakkhar03/Agriconnect.git
-   ```
-2. Navigate to the project folder:
-   ```sh
-   cd Agriconnect
-   ```
-   
 ## ⚙️ Setting up the Development Environment
 ### 1️⃣ Create a Virtual Environment
 ```sh
