@@ -53,4 +53,24 @@ document.addEventListener('DOMContentLoaded', function() {
             badge.style.color = '#666';
         });
     });
+
+    // Function to update notification descriptions
+    function updateNotificationDescriptions() {
+        
+        const notifications = document.querySelectorAll('.notification');
+        notifications.forEach(notification => {
+            const notificationId = notification.getAttribute('data-id'); // Assuming each notification has a unique ID
+            // Fetch new content from backend (this is a placeholder for actual fetch logic)
+            fetch(`/api/notifications/${notificationId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const description = notification.querySelector('.notification-description');
+                    description.textContent = data.description; 
+                })
+                .catch(error => console.error('Error fetching notification:', error));
+        });
+    }
+
+    updateNotificationDescriptions();
 });
+
