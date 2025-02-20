@@ -1,7 +1,5 @@
 # <img src="https://i.postimg.cc/D0r4xCg4/dark-Mode-Logo.png" alt="AgriConnect Logo" width="60"> AgriConnect 
 
-# 🌱 AgriConnect
-
 AgriConnect is an innovative platform designed to bridge the gap between agricultural workers, land providers, and buyers in the agricultural sector. The platform fosters a sustainable ecosystem, facilitating agricultural activities while offering educational resources.
 
 ## 🌟 Features
@@ -52,5 +50,8 @@ Contributions are welcome! Feel free to fork the repo and submit pull requests.
 This project is licensed under the MIT License.
 
 ## 📞 Contact
-- **GitHub:** [prakkhar03](https://github.com/prakkhar03) [prakhar-174](https://github.com/prakhar-174) [GarryMarkus](https://github.com/GarryMarkus) [GreyCode07](https://github.com/GreyCode07) 
+- **GitHub:** [prakkhar03](https://github.com/prakkhar03) 
+              [prakhar-174](https://github.com/prakhar-174)
+              [GarryMarkus](https://github.com/GarryMarkus)
+              [GreyCode07](https://github.com/GreyCode07) 
 - **Email:** *(Your email here)*
