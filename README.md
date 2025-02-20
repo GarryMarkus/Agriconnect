@@ -10,12 +10,12 @@ AgriConnect is an innovative platform designed to bridge the gap between agricul
 - **Profit Sharing Model:** Ensures fair distribution of earnings among stakeholders.
 
 ## 📷 Screenshots
-![Screenshot 1](https://i.postimg.cc/mP5SjdTF/Screenshot-2025-02-20-150032.png)
-![Screenshot 2](https://i.postimg.cc/1nxrhfnm/Screenshot-2025-02-20-150121.png)
-![Screenshot 3](https://i.postimg.cc/sBG4Np2H/Screenshot-2025-02-20-150154.png)
-![Screenshot 4](https://i.postimg.cc/gXvqYm8v/Screenshot-2025-02-20-150209.png)
-![Screenshot 5](https://i.postimg.cc/zH8wv6F4/Screenshot-2025-02-20-150247.png)
-![Screenshot 6](https://i.postimg.cc/YLR6WRX0/Screenshot-2025-02-20-150319.png)
+![Screenshot 1](https://i.postimg.cc/XvVDVhhx/Screenshot-2025-02-20-150032.png)
+![Screenshot 2](https://i.postimg.cc/qRqbKKp3/Screenshot-2025-02-20-150121.png)
+![Screenshot 3](https://i.postimg.cc/hGpZhsRn/Screenshot-2025-02-20-150154.png)
+![Screenshot 4](https://i.postimg.cc/TwskJPPH/Screenshot-2025-02-20-150209.png)
+![Screenshot 5](https://i.postimg.cc/rstfnL0y/Screenshot-2025-02-20-150247.png)
+![Screenshot 6](https://i.postimg.cc/t7Q28mW3/Screenshot-2025-02-20-150319.png)
 
 ## 🛠️ Tech Stack
 - **Frontend:** HTML, CSS, JavaScript
