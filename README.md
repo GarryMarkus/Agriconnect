@@ -1,4 +1,5 @@
-# <img src="https://i.postimg.cc/D0r4xCg4/dark-Mode-Logo.png" alt="AgriConnect Logo" width="80"> AgriConnect
+# <img src="https://i.postimg.cc/D0r4xCg4/dark-Mode-Logo.png" alt="AgriConnect Logo" width="80"> <h1 style="font-size: 50px;"> AgriConnect</h1>
+
 
 AgriConnect is a web-based platform designed to connect farmers, suppliers, and consumers, enhancing agricultural collaboration and information sharing. The project features a dynamic scrolling roadmap structure to showcase later elements as users navigate.
 
