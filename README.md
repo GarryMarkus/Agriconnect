@@ -32,10 +32,82 @@ AgriConnect is an innovative platform designed to bridge the gap between agricul
    ```sh
    cd Agriconnect
    ```
-3. Open `index.html` in a browser or use a local development server:
+# 🌱 AgriConnect
+
+AgriConnect is an innovative platform designed to bridge the gap between agricultural workers, land providers, and buyers in the agricultural sector. The platform fosters a sustainable ecosystem, facilitating agricultural activities while offering educational resources.
+
+## 🌟 Features
+- **Job Matching:** Connects agricultural workers with job opportunities.
+- **Land Rental Management:** Enables land providers to list and rent land for farming.
+- **Demand Aggregation:** Buyers can request specific crops, driving production.
+- **E-Learning Resources:** Provides educational content on sustainable farming.
+- **Profit Sharing Model:** Ensures fair distribution of earnings among stakeholders.
+
+## 📷 Screenshots
+![Screenshot 1](https://i.postimg.cc/XvVDVhhx/Screenshot-2025-02-20-150032.png)
+![Screenshot 2](https://i.postimg.cc/qRqbKKp3/Screenshot-2025-02-20-150121.png)
+![Screenshot 3](https://i.postimg.cc/hGpZhsRn/Screenshot-2025-02-20-150154.png)
+![Screenshot 4](https://i.postimg.cc/TwskJPPH/Screenshot-2025-02-20-150209.png)
+![Screenshot 5](https://i.postimg.cc/rstfnL0y/Screenshot-2025-02-20-150247.png)
+![Screenshot 6](https://i.postimg.cc/t7Q28mW3/Screenshot-2025-02-20-150319.png)
+
+## 🛠️ Tech Stack
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** (Specify if applicable, e.g., Node.js, Django, Flask)
+- **Database:** (Mention MySQL, Firebase, MongoDB, etc.)
+- **Libraries/Frameworks:** (e.g., Bootstrap, GSAP for animations, etc.)
+
+## 🚀 Installation & Usage
+1. Clone the repository:
    ```sh
-   live-server  # If using live-server
+   git clone https://github.com/prakkhar03/Agriconnect.git
    ```
+2. Navigate to the project folder:
+   ```sh
+   cd Agriconnect
+   ```
+   
+## ⚙️ Setting up the Development Environment
+### 1️⃣ Create a Virtual Environment
+```sh
+python -m venv env
+```
+Activate the virtual environment:
+- **Windows:**
+  ```sh
+  env\Scripts\activate
+  ```
+- **Linux/macOS:**
+  ```sh
+  source env/bin/activate
+  ```
+
+### 2️⃣ Install Dependencies
+```sh
+pip install -r requirements.txt
+```
+
+### 3️⃣ Configure Local Database
+Modify the database settings in `settings.py` to use a local database (e.g., PostgreSQL, MySQL, SQLite).
+
+### 4️⃣ Apply Migrations
+```sh
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### 5️⃣ Create a Superuser
+To access the Django admin panel, create a superuser:
+```sh
+python manage.py createsuperuser
+```
+Follow the prompts to set a username, email, and password.
+
+### 6️⃣ Run the Server
+```sh
+python manage.py runserver
+```
+The project should now be accessible at `http://127.0.0.1:8000/`.
 
 ## 📌 Workflow
 - **User Registration:** Sign up as a Worker, Land Provider, Buyer, or Learner.
