@@ -1,5 +1,5 @@
 # 🌱 AgriConnect
-![Demo Screenshot](https://postimg.cc/RJ00FL2v)
+[dark-Mode-Logo.png](https://postimg.cc/RJ00FL2v)
 AgriConnect is a web-based platform designed to connect farmers, suppliers, and consumers, enhancing agricultural collaboration and information sharing. The project features a dynamic scrolling roadmap structure to showcase later elements as users navigate.
 
 ## 🌟 Features
