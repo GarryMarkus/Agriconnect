@@ -427,6 +427,14 @@ def complete_assignment(request, assignment_id):
             if not LandAssignment.objects.filter(order=order, status='active').exists():
                 order.status = 'completed'
                 order.save()
+            Notification.objects.create(
+                    user=worker,
+                    notification_type='workcompleted',
+                    message=(
+        f"Dear {worker.first_name}, your job at {assignment.land.district} has been successfully completed. "
+        "Thank you for your efforts! Stay connected for more opportunities. \n\n"
+        "- Team AgriConnect"
+    ))
             
             return JsonResponse({'status': 'success', 'message': 'Assignment completed successfully'})
 
@@ -434,7 +442,7 @@ def complete_assignment(request, assignment_id):
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 
 
-@login_required(login_url="/login/")
+@login_required
 def get_worker_notifications(request):
     notifications = Notification.objects.filter(user=request.user, is_read=False).order_by('-created_at')
 
@@ -449,9 +457,8 @@ def get_worker_notifications(request):
     ]
     return JsonResponse({'notifications': notifications_data})
 
-
-
-
+@csrf_exempt
+@login_required(login_url="/login/")
 def mark_notifications_read(request):
     Notification.objects.filter(user=request.user, is_read=False).update(is_read=True)
     return JsonResponse({'status': 'success', 'message': 'Notifications marked as read'})
@@ -488,8 +495,12 @@ def assign_job(request):
                 Notification.objects.create(
                     user=worker,
                     notification_type='job',
-                    message=f"You have been assigned a new job at {land.district}. Check details in your dashboard."
-                )
+                  message=(
+        f"Dear {worker.first_name}, you have been assigned a new job at {land.district}. "
+        "Please check the details in your dashboard and proceed accordingly. "
+        "Let us know if you have any questions. Looking forward to your great work! \n\n"
+        "- Team AgriConnect")
+    )
 
                 return JsonResponse({'status': 'success', 'message': 'Job assigned successfully'})
 

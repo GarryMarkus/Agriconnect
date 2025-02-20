@@ -123,6 +123,7 @@ class Notification(models.Model):
         ('job', 'Job Assignment'),
         ('course', 'New Course'),
         ('general', 'General Update'),
+        ('workcompleted', 'Workcompleted'),
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
