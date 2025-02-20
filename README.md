@@ -30,7 +30,7 @@ AgriConnect is an innovative platform designed to bridge the gap between agricul
    ```
 2. Navigate to the project folder:
    ```sh
-   cd .\Agriconect\
+   cd Agriconect
    ```
 
 ## ⚙️ Setting up the Development Environment
@@ -50,7 +50,7 @@ Activate the virtual environment:
 
 ### 2️⃣ Install Dependencies
 ```sh
-pip install -r "requirements.txt"
+pip install -r requirements.txt
 ```
 
 ### 3️⃣ Configure Local Database
@@ -74,7 +74,10 @@ Follow the prompts to set a username, email, and password.
 python manage.py runserver
 ```
 The project should now be accessible at `http://127.0.0.1:8000/`.
-To access the admin panel, visit `http://127.0.0.1:8000/admin`
+
+To access the admin panel, visit `http://127.0.0.1:8000/admin`.
+
+
 ## 📌 Workflow
 - **User Registration:** Sign up as a Worker, Land Provider, Buyer, or Learner.
 - **Dashboard Access:** Users manage job listings, land rental, crop demand, or educational content.
@@ -86,7 +89,7 @@ To access the admin panel, visit `http://127.0.0.1:8000/admin`
 ## 🎯 Goals
 - Empower agricultural workers with job opportunities and training.
 - Utilize unused land for productive agricultural purposes.
-- Meet buyer demands for fresh, locally-sourced crops sustainably.
+- Meet buyers' demands for fresh, locally sourced crops while ensuring sustainability.
 - Educate individuals on modern agricultural practices.
 
 ## 🤝 Contributing
@@ -94,5 +97,9 @@ Contributions are welcome! Feel free to fork the repo and submit pull requests.
 
 
 ## 📞 Contact
-- **GitHub:** [prakkhar03](https://github.com/prakkhar03), [prakhar-174](https://github.com/prakhar-174), [GarryMarkus](https://github.com/GarryMarkus) and [GreyCode07](https://github.com/GreyCode07) 
+- **GitHub Contributors:**
+  - [prakkhar03](https://github.com/prakkhar03)
+  - [prakhar-174](https://github.com/prakhar-174)
+  - [GarryMarkus](https://github.com/GarryMarkus)
+  - [GreyCode07](https://github.com/GreyCode07) 
 
