@@ -19,9 +19,9 @@ AgriConnect is an innovative platform designed to bridge the gap between agricul
 
 ## 🛠️ Tech Stack
 - **Frontend:** HTML, CSS, JavaScript
-- **Backend:** (Specify if applicable, e.g., Node.js, Django, Flask)
-- **Database:** (Mention MySQL, Firebase, MongoDB, etc.)
-- **Libraries/Frameworks:** (e.g., Bootstrap, GSAP for animations, etc.)
+- **Backend:** Django
+- **Database:** PostgreSQL
+- **Libraries/Frameworks:** TailWind, Jazzmin
 
 ## 🚀 Installation & Usage
 1. Clone the repository:
