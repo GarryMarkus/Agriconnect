@@ -28,7 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["agriconnect-7gbh.onrender.com", "127.0.0.1", "localhost"]
 
+import dj_database_url
 
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+}
 
 # Application definition
 
@@ -78,12 +82,7 @@ WSGI_APPLICATION = 'Agriconect.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -123,12 +122,12 @@ import os
 STATIC_URL = "/static/"
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  
-
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),  #
+    os.path.join(BASE_DIR, "static"),
 ]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
