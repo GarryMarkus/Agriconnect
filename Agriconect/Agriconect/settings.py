@@ -133,8 +133,11 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+from dotenv import load_dotenv
+load_dotenv()
 
-GEMINI_API_KEY = 'AIzaSyAw5Y2GRIeGowjBCVQRWXG0Qu5w-4-ELU8'  
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+
 
 JAZZMIN_INDEX_TITLE = "Agriconnect Admin"
 JAZZMIN_SETTINGS = {
