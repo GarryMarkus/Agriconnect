@@ -5,7 +5,7 @@ import asyncio
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
 
-model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel('gemini-1.5-pro')
 
 async def get_gemini_response(prompt):
     try:
