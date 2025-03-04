@@ -137,8 +137,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-
-
+GEMINI_MODEL = os.getenv('GEMINI_MODEL') 
 JAZZMIN_INDEX_TITLE = "Agriconnect Admin"
 JAZZMIN_SETTINGS = {
     "site_title": "Agriconnect Admin",
