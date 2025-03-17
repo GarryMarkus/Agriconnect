@@ -28,10 +28,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["agriconnect-7gbh.onrender.com", "127.0.0.1", "localhost"]
 
-import dj_database_url
+# import dj_database_url
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+# DATABASES = {
+#     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+# }
+DATABASES={
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Application definition
@@ -153,3 +159,10 @@ JAZZMIN_SETTINGS = {
         {"name": "Order Assignment", "url": "/admin-dashboard/", "icon": "fas fa-tachometer-alt"},
     ],
 }
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'rocksbabaji41217@gmail.com' 
+EMAIL_HOST_PASSWORD = 'zvzw uhne mycn obhp'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER 
