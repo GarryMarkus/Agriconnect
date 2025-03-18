@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin-complete-assignment/<int:assignment_id>/', complete_assignment, name='complete_assignment'),
     path('notifications/', get_worker_notifications, name='get_worker_notifications'),
     path('mark_notifications_read/', mark_notifications_read, name='mark_notifications_read'),
+    path('verify-email/<uidb64>/<token>/', verify_email, name='verify_email'),
 ]

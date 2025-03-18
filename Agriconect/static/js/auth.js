@@ -13,7 +13,7 @@ function toggleFields() {
         document.getElementById('aadhar').required = false;
         document.getElementById('gst').required = false;
 
-        if (userType === 'worker' || userType === 'provider') {
+        if (userType === 'worker' || userType === 'provider' || userType === 'student') {
             aadharField.classList.remove('hidden');
             document.getElementById('aadhar').required = true;
         } else if (userType === 'buyer') {

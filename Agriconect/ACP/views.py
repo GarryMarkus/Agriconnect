@@ -14,7 +14,14 @@ from .utils.gemini_config import get_gemini_response
 import asyncio
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
-
+from django.core.mail import send_mail
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.template.loader import render_to_string
+from django.contrib.auth.tokens import default_token_generator
+from django.urls import reverse
+import re
+from django.core.mail import EmailMultiAlternatives
 def start_template(request):
     return render(request, 'index.html')
 
@@ -44,6 +51,8 @@ def login(request):
                         return JsonResponse({'status': 'success', 'redirect': '/provider_dashboard/'})
                     elif user_profile.user_type == 'buyer':
                         return JsonResponse({'status': 'success', 'redirect': '/buyer_dashboard/'})
+                    elif user_profile.user_type == 'student':
+                        return JsonResponse({'status': 'success', 'redirect': '/student_dashboard/'})
                     else:
                         return JsonResponse({'status': 'error', 'message': 'Invalid user type'}, status=400)
 
@@ -176,7 +185,11 @@ def buyer_dashboard(request):
         return render(request, 'buyer.html')
     except UserProfile.DoesNotExist:
         return redirect('login')
-
+@login_required(login_url="/login/")
+def student_dashboard(request):
+    if request.user.userprofile.user_type!= 'student':
+        return redirect('login')
+    return render(request,'student.html')
 @login_required(login_url="/login/")
 def profile(request):
     try:
@@ -187,7 +200,10 @@ def profile(request):
     except UserProfile.DoesNotExist:
         return redirect('login')
 
-
+def is_valid_email(email):
+    """Check if the provided email is valid."""
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(email_regex, email)
 @csrf_exempt
 def register(request):
     if request.method == "POST":
@@ -196,7 +212,7 @@ def register(request):
             
             user_type = data.get("userType")
             name = data.get("name")
-            email = data.get("email")
+            email = data.get("email", "").strip()
             phone = data.get("phone")
             password = data.get("password")
             confirm_password = data.get("confirmPassword")
@@ -238,15 +254,23 @@ def register(request):
                     user=user,
                     user_type=user_type,
                     phone_number=phone,
-                    aadhar_number=aadhar if user_type in ['worker', 'provider'] else '',
+                    aadhar_number=aadhar if user_type in ['worker', 'provider','student'] else '',
                     gst_number=gst if user_type == 'buyer' else ''
                 )
+                user.is_active = False
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+                token = default_token_generator.make_token(user)
+                verification_link = f"http://127.0.0.1:8000/verify-email/{uid}/{token}/"
+                email_subject = "Verify Your Email Address"
+                email_body = render_to_string('verify_email.html', {
+                    'user': user,
+                    'verification_link': verification_link
+                })
+                email = EmailMultiAlternatives(email_subject, email_body, 'rocksbabaji41217@gmail.com', [user.email])
+                email.attach_alternative(email_body, "text/html")
+                email.send()
 
-            return JsonResponse({
-                "status": "success",
-                "message": "Registration successful"
-            }, status=201)
-
+            return JsonResponse({"status": "success", "message": "Registration successful. Check your email to verify your account."}, status=201)
         except Exception as e:
             print(f"Registration error: {str(e)}")  
             return JsonResponse({
@@ -255,6 +279,23 @@ def register(request):
             }, status=500)
 
     return render(request, 'register.html')
+def verify_email(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+
+        if default_token_generator.check_token(user, token):
+            user.is_active = True
+            user.save()
+            messages.success(request, "Email verified successfully! You can now log in.")
+            return redirect("login")  # Redirect to login page
+        else:
+            messages.error(request, "Invalid or expired verification link.")
+            return redirect("register")
+
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        messages.error(request, "Invalid verification link.")
+        return redirect("register")
 def index(request):
     return render(request, 'index.html')
 

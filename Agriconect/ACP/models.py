@@ -9,6 +9,7 @@ class UserProfile(models.Model):
         ('worker', 'Agricultural Worker'),
         ('provider', 'Land Provider'),
         ('buyer', 'Buyer'),
+        ('student', 'Student'),
     ]
     
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='userprofile')
