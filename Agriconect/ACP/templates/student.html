@@ -1,11 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- {% load static %} -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>AgriConnect E-Learn</title>
+    <link rel="shortcut icon" href="{% static 'assets/agriconnect.png' %}" type="image/x-icon">
+    <!-- <link rel="stylesheet" href="{% static 'assets/css/student.css' %}"> -->
+     <link rel="stylesheet" href="/Agriconnect/Agriconect/static/css/student.css">
 </head>
 <body>
+
+<nav class="navbar">
+    <a href="#" class="navbar-logo">AgriConnect</a>
+    <div class="navbar-links">
+        <a href="#" class="navbar-link">Home</a>
+        <a href="#" class="navbar-link">Learn</a>
+        <a href="#" class="navbar-link">Explore</a>
+        <a href="#" class="navbar-link">Contact</a>
+    </div>
+</nav>
+
+
+<section class="hero">
+    <h1 class="hero-title">Learn Agriculture From Seed to Harvest</h1>
+    <p class="hero-subtitle">Gain practical knowledge, learn from experts, and master sustainable farming techniques with our comprehensive agricultural education platform.</p>
     
+    <div class="buttons">
+        <a href="#" class="btn btn-primary">Start Learning</a>
+        <a href="#" class="btn btn-secondary">View Demonstrations</a>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Courses</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Expert Instructors</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">25+</div>
+            <div class="stat-label">Practice Areas</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">1000+</div>
+            <div class="stat-label">Graduates</div>
+        </div>
+    </div>
+</section>
+
+<!-- Learning Paths Section -->
+<section class="learning-paths">
+    <h2 class="section-title">Agricultural Learning Paths</h2>
+    <p class="section-subtitle">Structured learning journeys designed to take you from beginner to expert in various agricultural disciplines.</p>
+
+    <div class="category-filter">
+        <button class="category-btn active">All Courses</button>
+        <button class="category-btn">Crop Management</button>
+        <button class="category-btn">Soil Science</button>
+        <button class="category-btn">Sustainable Practices</button>
+        <button class="category-btn">Farm Equipment</button>
+        <button class="category-btn">Business Skills</button>
+    </div>
+
+    <div class="courses">
+        
+        <div class="course-card">
+            <div class="course-image">
+                <img src="/api/placeholder/400/200" alt="Sustainable Farming">
+                <div class="course-badge badge-bestseller">Bestseller</div>
+            </div>
+            <div class="course-info">
+                <div>
+                    <span class="course-level level-beginner">Beginner</span>
+                    <span class="course-duration">8 weeks</span>
+                </div>
+                <h3 class="course-title">Introduction to Sustainable Farming</h3>
+                <p class="course-description">Learn the foundations of eco-friendly agricultural practices and build a sustainable farm from scratch.</p>
+                <div class="course-rating">
+                    <div class="rating-stars">★★★★★</div>
+                    <div class="rating-count">4.9 (2,150 ratings)</div>
+                </div>
+                <div class="course-footer">
+                    <div class="course-price">Free</div>
+                    <button class="enroll-btn">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+
+    
+        <div class="course-card">
+            <div class="course-image">
+                <img src="/api/placeholder/400/200" alt="Soil Science">
+            </div>
+            <div class="course-info">
+                <div>
+                    <span class="course-level level-intermediate">Intermediate</span>
+                    <span class="course-duration">6 weeks</span>
+                </div>
+                <h3 class="course-title">Soil Science for Crop Optimization</h3>
+                <p class="course-description">Master soil testing, amendments, and nutrient management to maximize your crop yields.</p>
+                <div class="course-rating">
+                    <div class="rating-stars">★★★★☆</div>
+                    <div class="rating-count">4.7 (1,832 ratings)</div>
+                </div>
+                <div class="course-footer">
+                    <div class="course-price">Free</div>
+                    <button class="enroll-btn">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="course-card">
+            <div class="course-image">
+                <img src="/api/placeholder/400/200" alt="Agricultural Business">
+                <div class="course-badge badge-new">New</div>
+            </div>
+            <div class="course-info">
+                <div>
+                    <span class="course-level level-advanced">Advanced</span>
+                    <span class="course-duration">10 weeks</span>
+                </div>
+                <h3 class="course-title">Agricultural Business Management</h3>
+                <p class="course-description">Develop business skills to transform your farming operation into a profitable and sustainable enterprise.</p>
+                <div class="course-rating">
+                    <div class="rating-stars">★★★★★</div>
+                    <div class="rating-count">5.0 (726 ratings)</div>
+                </div>
+                <div class="course-footer">
+                    <div class="course-price">Free</div>
+                    <button class="enroll-btn">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="short-courses-section">
+    <div class="short-courses">
+        
+        <div class="short-course-card">
+            <h3 class="short-course-title">Organic Pest Control Strategies</h3>
+            <div class="short-course-meta">
+                <div>
+                    <span class="course-level level-beginner">Beginner</span>
+                    <span class="course-duration">4 weeks</span>
+                </div>
+            </div>
+            <div class="short-course-rating">
+                <span class="short-rating-star">★</span>
+                <span>4.8</span>
+            </div>
+            <a href="#" class="short-course-link">View Course</a>
+        </div>
+
+        
+        <div class="short-course-card">
+            <h3 class="short-course-title">Water Management Systems</h3>
+            <div class="short-course-meta">
+                <div>
+                    <span class="course-level level-intermediate">Intermediate</span>
+                    <span class="course-duration">5 weeks</span>
+                </div>
+            </div>
+            <div class="short-course-rating">
+                <span class="short-rating-star">★</span>
+                <span>4.6</span>
+            </div>
+            <a href="#" class="short-course-link">View Course</a>
+        </div>
+
+        
+        <div class="short-course-card">
+            <h3 class="short-course-title">Crop Rotation Techniques</h3>
+            <div class="short-course-meta">
+                <div>
+                    <span class="course-level level-beginner">Beginner</span>
+                    <span class="course-duration">3 weeks</span>
+                </div>
+            </div>
+            <div class="short-course-rating">
+                <span class="short-rating-star">★</span>
+                <span>4.7</span>
+            </div>
+            <a href="#" class="short-course-link">View Course</a>
+        </div>
+
+        
+        <div class="short-course-card">
+            <h3 class="short-course-title">Farm Equipment Maintenance</h3>
+            <div class="short-course-meta">
+                <div>
+                    <span class="course-level level-intermediate">Intermediate</span>
+                    <span class="course-duration">6 weeks</span>
+                </div>
+            </div>
+            <div class="short-course-rating">
+                <span class="short-rating-star">★</span>
+                <span>4.5</span>
+            </div>
+            <a href="#" class="short-course-link">View Course</a>
+        </div>
+    </div>
+
+    <div class="view-all-container">
+        <a href="#" class="view-all-btn">
+            View All Courses
+            <span class="arrow-icon">→</span>
+        </a>
+    </div>
+</section>
+
+<section class="tools-section">
+    <h2 class="tools-section-title">Agricultural Learning Paths</h2>
+    <p class="tools-section-subtitle">Structured learning journeys designed to take you from beginner to expert in various agricultural disciplines.</p>
+
+    <div class="tools-section-container">
+        <h1>Interactive Learning Tools</h1>
+        
+        <div class="tools-section-grid">
+            <!-- Virtual Field Simulator -->
+            <div class="tools-section-card">
+                <div class="icon-wrapper green-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                    </svg>
+                </div>
+                <h2 class="tools-section-card-title">Virtual Field Simulator</h2>
+                <p class="tools-section-card-description">Practice crop management decisions in a risk-free virtual environment with real-time feedback.</p>
+                <a href="#" class="tools-section-card-link">Try Simulator →</a>
+            </div>
+
+            <!-- Crop Disease Identifier -->
+            <div class="tools-section-card">
+                <div class="icon-wrapper green-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </div>
+                <h2 class="tools-section-card-title">Crop Disease Identifier</h2>
+                <p class="tools-section-card-description">Upload images of your plants to identify diseases and receive treatment recommendations.</p>
+                <a href="#" class="tools-section-card-link">Use Tool →</a>
+            </div>
+
+            <!-- Planting Calendar Generator -->
+            <div class="tools-section-card">
+                <div class="icon-wrapper green-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                </div>
+                <h2 class="tools-section-card-title">Planting Calendar Generator</h2>
+                <p class="tools-section-card-description">Create a customized planting schedule based on your climate zone and selected crops.</p>
+                <a href="#" class="tools-section-card-link">Generate Calendar →</a>
+            </div>
+
+            <!-- Farm Profitability Calculator -->
+            <div class="tools-section-card">
+                <div class="icon-wrapper blue-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                        <line x1="2" y1="10" x2="22" y2="10"></line>
+                    </svg>
+                </div>
+                <h2 class="tools-section-card-title">Farm Profitability Calculator</h2>
+                <p class="tools-section-card-description">Calculate costs, revenue, and profit potential for different crops and farming methods to make informed decisions.</p>
+                <ul class="feature-list">
+                    <li class="feature-item">Input cost analysis</li>
+                    <li class="feature-item">Yield prediction</li>
+                    <li class="feature-item">Market price integration</li>
+                </ul>
+                <a href="#" class="tools-section-card-link">Open Calculator →</a>
+            </div>
+
+            <!-- Water Management Simulator -->
+            <div class="tools-section-card">
+                <div class="icon-wrapper green-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                </div>
+                <h2 class="tools-section-card-title">Water Management Simulator</h2>
+                <p class="tools-section-card-description">Simulate different irrigation systems and water conservation techniques to optimize usage while maintaining crop health.</p>
+                <ul class="tools-section-feature-list">
+                    <li class="feature-item">Interactive 3D simulation</li>
+                    <li class="feature-item">Water usage tracking</li>
+                    <li class="feature-item">Rainfall integration</li>
+                </ul>
+                <a href="#" class="tools-section-card-link">Try Simulator →</a>
+            </div>
+
+            <!-- Agricultural Knowledge Quiz -->
+            <div class="tools-section-card">
+                <div class="icon-wrapper orange-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                </div>
+                <h2 class="tools-section-card-title">Agricultural Knowledge Quiz</h2>
+                <p class="tools-section-card-description">Test your agricultural knowledge with interactive quizzes covering different farming topics and get instant feedback.</p>
+                <ul class="feature-list">
+                    <li class="feature-item">Multiple difficulty levels</li>
+                    <li class="feature-item">Detailed explanations</li>
+                    <li class="feature-item">Progress tracking</li>
+                </ul>
+                <a href="#" class="tools-section-card-link">Start Quiz →</a>
+            </div>
+        </div>
+    </div>
+</section>
+    <script>
+    </script>
 </body>
 </html>
