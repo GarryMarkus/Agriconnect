@@ -1,4 +1,3 @@
-
 function toggleFields() {
     const userType = document.getElementById('userType').value;
     const aadharField = document.getElementById('aadharField');
@@ -81,12 +80,23 @@ document.getElementById('loginForm')?.addEventListener('submit', async function(
     e.preventDefault();
 
     const csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const userType = document.getElementById('userType').value;
 
     const loginData = {
-        userType: document.getElementById('userType').value,
+        userType: userType,
         email: document.getElementById('email').value,
         password: document.getElementById('password').value
     };
+
+    // Add Aadhar number for worker, provider, or student
+    if (userType === 'worker' || userType === 'provider' || userType === 'student') {
+        const aadhar = document.getElementById('aadhar').value;
+        if (!aadhar) {
+            alert('Aadhar number is required');
+            return;
+        }
+        loginData.aadhar = aadhar;
+    }
 
     try {
         const response = await fetch('/login/', {
