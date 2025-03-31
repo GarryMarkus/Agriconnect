@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- {% load static %} -->
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgriConnect E-Learn</title>
     <link rel="shortcut icon" href="{% static 'assets/agriconnect.png' %}" type="image/x-icon">
-    <!-- <link rel="stylesheet" href="{% static 'assets/css/student.css' %}"> -->
-     <link rel="stylesheet" href="/Agriconnect/Agriconect/static/css/student.css">
+    <link rel="stylesheet" href="{% static 'assets/css/student.css' %}">
+     <!-- <link rel="stylesheet" href="/Agriconnect/Agriconect/static/css/student.css"> -->
 </head>
 <body>
 
 <nav class="navbar">
     <a href="#" class="navbar-logo">AgriConnect</a>
     <div class="navbar-links">
-        <a href="#" class="navbar-link">Home</a>
-        <a href="#" class="navbar-link">Learn</a>
-        <a href="#" class="navbar-link">Explore</a>
-        <a href="#" class="navbar-link">Contact</a>
+        <a href="#home" class="navbar-link">Home</a>
+        <a href="#learn" class="navbar-link">Learn</a>
+        <a href="#explore" class="navbar-link">Explore</a>
+        <a href="#" class="navbar-link">Profile</a>
     </div>
 </nav>
 
 
-<section class="hero">
+<section class="hero" id="home">
     <h1 class="hero-title">Learn Agriculture From Seed to Harvest</h1>
     <p class="hero-subtitle">Gain practical knowledge, learn from experts, and master sustainable farming techniques with our comprehensive agricultural education platform.</p>
     
@@ -69,7 +69,7 @@
         
         <div class="course-card">
             <div class="course-image">
-                <img src="/api/placeholder/400/200" alt="Sustainable Farming">
+                <img src="https://organicabiotech.com/wp-content/uploads/2021/06/types-of-organic-farming-in-india.jpg" alt="Sustainable Farming">
                 <div class="course-badge badge-bestseller">Bestseller</div>
             </div>
             <div class="course-info">
@@ -93,7 +93,7 @@
     
         <div class="course-card">
             <div class="course-image">
-                <img src="/api/placeholder/400/200" alt="Soil Science">
+                <img src="https://blog.agribazaar.com/wp-content/uploads/2023/06/AI.jpg" alt="Soil Science">
             </div>
             <div class="course-info">
                 <div>
@@ -116,7 +116,7 @@
         
         <div class="course-card">
             <div class="course-image">
-                <img src="/api/placeholder/400/200" alt="Agricultural Business">
+                <img src="https://www.xibms.com/blog/wp-content/uploads/2020/03/Agribusiness-Management.jpg" alt="Agricultural Business">
                 <div class="course-badge badge-new">New</div>
             </div>
             <div class="course-info">
@@ -140,7 +140,7 @@
 </section>
 
 
-<section class="short-courses-section">
+<section class="short-courses-section" id="learn">
     <div class="short-courses">
         
         <div class="short-course-card">
@@ -328,7 +328,7 @@
         <!-- Article 1 -->
         <article class="article-card">
             <div class="article-image">
-                <img src="/api/placeholder/500/300" alt="Business person in suit">
+                <img src="https://i.ytimg.com/vi/1uMj-k2aKd8/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCR5nPRAx-kqufC9O8Fd6OyJD2pIQ" alt="Business person in suit">
                 <span class="article-tag">Soil Science</span>
             </div>
             <div class="article-content">
@@ -351,7 +351,7 @@
         <!-- Article 2 -->
         <article class="article-card">
             <div class="article-image">
-                <img src="/api/placeholder/500/300" alt="Person holding coffee mug">
+                <img src="https://media.licdn.com/dms/image/v2/D4E10AQEnoxcDO7hh4Q/image-shrink_800/image-shrink_800/0/1721731519133?e=2147483647&v=beta&t=5peAdB0EtWKE9nZZXLSfRTGGQrK_gDWZ9Ppcb_YwMm0" alt="Person holding coffee mug">
                 <span class="article-tag">Organic Farming</span>
             </div>
             <div class="article-content">
@@ -374,7 +374,7 @@
         <!-- Article 3 -->
         <article class="article-card">
             <div class="article-image">
-                <img src="/api/placeholder/500/300" alt="People working with laptop and notes">
+                <img src="https://media.licdn.com/dms/image/v2/D5612AQG6Rb_DhL5cAg/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1708009028937?e=2147483647&v=beta&t=B-QJ2KEmKH-2khU0hSP2D-eRNrkj5FtMrQLmc0-EkHM" alt="People working with laptop and notes">
                 <span class="article-tag">AgTech</span>
             </div>
             <div class="article-content">
@@ -397,7 +397,7 @@
 </section>
 
 <!-- Simulator Section -->
-<section class="simulator-section-container">
+<section class="simulator-section-container" id="explore">
     <div class="simulator-section">
         <div class="simulator-info">
             <div class="simulator-badge">Premium Tool</div>
@@ -452,7 +452,83 @@
     </div>
 </section>
 
-    <script>
-    </script>
+<div class="foot-container">
+    <section class="testimonials-section">
+        <h2>What Students Are Saying</h2>
+        <div class="testimonials">
+            <div class="testimonial-card">
+                <div class="testimonial-card-user-info">
+                    <div class="avatar jd">JD</div>
+                    <div class="testimonial-card-user-details">
+                        <h3>Julia Diaz</h3>
+                        <p>Agriculture Student</p>
+                    </div>
+                </div>
+                <p class="testimonial-text">"The Crop Planner tool has been invaluable for my studies. It helped me visualize crop rotations and understand companion planting in a way textbooks never could."</p>
+                <div class="rating">★ ★ ★ ★ ★</div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-card-user-info">
+                    <div class="avatar mk">MK</div>
+                    <div class="testimonial-card-user-details">
+                        <h3>Michael Kim</h3>
+                        <p>Aspiring Farmer</p>
+                    </div>
+                </div>
+                <p class="testimonial-text">"The Virtual Farm Simulator gave me practical experience before investing in real land. I was able to learn from mistakes virtually that would have cost me thousands in reality."</p>
+                <div class="rating">★ ★ ★ ★ ★</div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-card-user-info">
+                    <div class="avatar sn">SN</div>
+                    <div class="testimonial-card-user-details">
+                        <h3>Sarah Nguyen</h3>
+                        <p>Urban Gardener</p>
+                    </div>
+                </div>
+                <p class="testimonial-text">"The Pest & Disease Identifier saved my tomato crop! I uploaded a photo of my struggling plants and got an immediate diagnosis with organic treatment options."</p>
+                <div class="rating">★ ★ ★ ★ ★</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonial-card-cta">
+        <h2>Ready to Apply Your Knowledge?</h2>
+        <p>Our interactive tools are designed to bridge the gap between theory and practice. Start using them today to gain hands-on agricultural experience.</p>
+        <a href="#" class="testimonial-card-btn">Explore All Tools →</a>
+    </section>
+    
+    <section class="faqs-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faqs">
+            <div class="faq-card">
+                <p class="faq-question">How do I get started with learning agriculture?</p>
+                <p class="faq-answer">Start by exploring our Learning Paths section, which offers structured programs for beginners. The Foundation in Agriculture path is perfect for those with no prior experience.</p>
+            </div>
+            
+            <div class="faq-card">
+                <p class="faq-question">Are the courses free for students?</p>
+                <p class="faq-answer">Yes, our core educational content is free for all students. We offer premium courses with additional features and certifications for a fee, but the fundamental learning materials are accessible to everyone.</p>
+            </div>
+            
+            <div class="faq-card">
+                <p class="faq-question">Can I access practical farming experience?</p>
+                <p class="faq-answer">Absolutely! We offer virtual simulations in our Interactive Tools section, and we coordinate hands-on workshops at our demonstration farms. Check our Events calendar for upcoming opportunities.</p>
+            </div>
+            
+            <div class="faq-card">
+                <p class="faq-question">How can I connect with agricultural experts?</p>
+                <p class="faq-answer">Join our Community Forum to interact with industry professionals and fellow learners. You can also attend our live webinars and Q&A sessions with experts featured in our Expert Insights section.</p>
+            </div>
+        </div>
+        
+        <div class="faqs-section-cta" style="margin-top: 40px;">
+            <a href="#" class="faqs-section-btn">View All FAQs →</a>
+        </div>
+    </section>
+</div>
+
 </body>
 </html>
