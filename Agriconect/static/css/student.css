@@ -3,6 +3,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+    
 }
 
 body {
@@ -932,4 +934,175 @@ body {
     color: #10b981;
     font-weight: 500;
     cursor: pointer;
+}
+
+.foot-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.foot-container section {
+    margin-bottom: 60px;
+}
+
+.testimonials-section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+}
+
+.testimonials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.testimonial-card {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    padding: 25px;
+    width: 100%;
+    max-width: 350px;
+}
+
+.testimonial-card-user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.jd {
+    background-color: #1e7d32;
+}
+
+.mk {
+    background-color: #1565c0;
+}
+
+.sn {
+    background-color: #7b1fa2;
+}
+
+.testimonial-card-user-details h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.testimonial-card-user-details p {
+    margin: 0;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.testimonial-text {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.rating {
+    color: #ffc107;
+    font-size: 20px;
+}
+
+.testimonial-card-cta {
+    text-align: center;
+    margin: 30px 0 50px;
+}
+
+.testimonial-card-cta p {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.testimonial-card-btn {
+    display: inline-block;
+    background-color: #2e7d32;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.testimonial-card-btn:hover {
+    background-color: #1b5e20;
+}
+
+.faqs-section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+}
+
+.faqs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.faq-card {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    padding: 25px;
+}
+
+.faq-question {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.faq-answer {
+    font-size: 16px;
+    color: #ddd;
+}
+
+@media (max-width: 768px) {
+    .testimonials {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .faqs {
+        grid-template-columns: 1fr;
+    }
+}
+
+.faqs-section-cta {
+    text-align: center;
+    margin: 30px 0 50px;
+}
+
+.faqs-section-btn {
+    display: inline-block;
+    background-color: #2e7d32;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.faqs-section-btn:hover {
+    background-color: #1b5e20;
 }
