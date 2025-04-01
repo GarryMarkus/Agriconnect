@@ -89,14 +89,14 @@ document.getElementById('loginForm')?.addEventListener('submit', async function(
     };
 
     // Add Aadhar number for worker, provider, or student
-    if (userType === 'worker' || userType === 'provider' || userType === 'student') {
-        const aadhar = document.getElementById('aadhar').value;
-        if (!aadhar) {
-            alert('Aadhar number is required');
-            return;
-        }
-        loginData.aadhar = aadhar;
-    }
+    // if (userType === 'worker' || userType === 'provider' || userType === 'student') {
+    //     const aadhar = document.getElementById('aadhar').value;
+    //     if (!aadhar) {
+    //         alert('Aadhar number is required');
+    //         return;
+    //     }
+    //     loginData.aadhar = aadhar;
+    // }
 
     try {
         const response = await fetch('/login/', {
