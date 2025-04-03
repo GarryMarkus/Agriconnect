@@ -22,4 +22,5 @@ urlpatterns = [
     path('notifications/', get_worker_notifications, name='get_worker_notifications'),
     path('mark_notifications_read/', mark_notifications_read, name='mark_notifications_read'),
     path('verify-email/<uidb64>/<token>/', verify_email, name='verify_email'),
+    path('student_dashboard/',student_dashboard, name='student_dashboard'),
 ]

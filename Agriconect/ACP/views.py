@@ -194,7 +194,7 @@ def student_dashboard(request):
 def profile(request):
     try:
         user_profile = request.user.userprofile
-        if user_profile.user_type not in ['worker', 'provider', 'buyer']:
+        if user_profile.user_type not in ['worker', 'provider', 'buyer','student']:
             return redirect('login')
         return render(request, 'profile.html', {'user_profile': user_profile})
     except UserProfile.DoesNotExist:

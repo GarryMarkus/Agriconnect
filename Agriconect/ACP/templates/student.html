@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgriConnect E-Learn</title>
     <link rel="shortcut icon" href="{% static 'assets/agriconnect.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'assets/css/student.css' %}">
+    <link rel="stylesheet" href="{% static 'css/student.css' %}">
      <!-- <link rel="stylesheet" href="/Agriconnect/Agriconect/static/css/student.css"> -->
 </head>
 <body>
@@ -17,7 +17,7 @@
         <a href="#home" class="navbar-link">Home</a>
         <a href="#learn" class="navbar-link">Learn</a>
         <a href="#explore" class="navbar-link">Explore</a>
-        <a href="#" class="navbar-link">Profile</a>
+        <a href="{% url 'profile' %}" class="navbar-link">Profile</a>
     </div>
 </nav>
 
