@@ -26,18 +26,12 @@ SECRET_KEY = 'django-insecure-*!)385y$k^#@=@i136foudljgras9xt+w5=+3o)rp8tjk4=s_o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["agriconnect-7gbh.onrender.com", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["agriconnect-8rwy.onrender.com", "127.0.0.1", "localhost"]
 
-# import dj_database_url
+import dj_database_url
 
-# DATABASES = {
-#     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
-# }
-DATABASES={
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 # Application definition
