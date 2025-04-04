@@ -260,7 +260,7 @@ def register(request):
                 user.is_active = False
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
                 token = default_token_generator.make_token(user)
-                verification_link = f"http://127.0.0.1:8000/verify-email/{uid}/{token}/"
+                verification_link = f"https://agriconnect-8rwy.onrender.com/verify-email/{uid}/{token}/"
                 email_subject = "Verify Your Email Address"
                 email_body = render_to_string('verify_email.html', {
                     'user': user,
